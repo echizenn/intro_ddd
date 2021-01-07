@@ -1,5 +1,5 @@
 """
-2.2節のコードの説明
+2.2.1節のコードの説明
 """
 from ddd2_1 import FullName
 
