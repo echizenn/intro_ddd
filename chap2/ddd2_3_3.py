@@ -15,7 +15,7 @@ class Name:
         if not re.fullmatch('[a-zA-Z]+', value):
             raise ValueError("許可されていない文字が使われています")
         
-        self.value = value
+        self.value: str = value
 
 # リスト2.26
 class FullName:
@@ -30,5 +30,5 @@ class FullName:
         if not first_name: raise ValueError("first_nameが定義されていません")
         if not last_name: raise ValueError("last_nameが定義されていません")
 
-        self.first_name = first_name
-        self.last_name = last_name
+        self.first_name: Name = first_name
+        self.last_name: Name = last_name

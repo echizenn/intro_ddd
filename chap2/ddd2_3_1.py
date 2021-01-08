@@ -26,7 +26,7 @@ class FirstName:
     """
     def __init__(self, value: str):
         if not value: raise ValueError("1文字以上である必要があります。")
-        self.value = value
+        self.value: str = value
 
 # リスト2.23
 class LastName:
@@ -38,4 +38,4 @@ class LastName:
     """
     def __init__(self, value: str):
         if not value: raise ValueError("1文字以上である必要があります。")
-        self.value = value
+        self.value: str = value

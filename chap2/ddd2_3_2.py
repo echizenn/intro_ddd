@@ -20,6 +20,9 @@ class FullName:
         if not self.validate_name(last_name):
             raise ValueError("許可されていない文字が使われています")
 
+        self.first_name: str = first_name
+        self.last_name: str = last_name
+
     @staticmethod
     def validate_name(value: str) -> bool:
         # アルファベットに限定する
