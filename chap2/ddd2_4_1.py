@@ -2,8 +2,10 @@
 2.4.1節のコードの説明
 """
 from __future__ import annotations # これで自己クラスを型ヒントで使える
+from dataclasses import dataclass
 
 # リスト2.32
+@dataclass
 class Money:
     """
     量と通貨単位を属性にもつお金オブジェクト
@@ -13,11 +15,8 @@ class Money:
         amount (float): (お金の)量
         currency (str): 通貨単位(円やドル)
     """
-    def __init__(self, amount: float, currency: str):
-        if not currency: raise ValueError("currencyが定義されていません")
-
-        self.amount: float = amount
-        self.currency: str = currency
+    amont: float
+    currency: str
 
     def __add__(self, arg: Money) -> Money:
         """
@@ -32,7 +31,6 @@ class Money:
         Note:
             pythonは+演算子を実行すると、__add__メソッドを呼ぶ
         """
-        if not arg: raise ValueError("currencyが定義されていません")
         if self.currency != arg.currency:
             raise ValueError("通貨単位が異なります" \
                     "(self:{}, arg:{})".format(self.currency, arg.currency))
