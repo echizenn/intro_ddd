@@ -38,6 +38,7 @@ def list2_12():
 
     Notes:
         値オブジェクトで値の変更をするときのやり方
+        変更ではなく、代入による交換をするしかない
     """
     full_name: FullName = FullName("masanobu", "naruse")
     full_name = FullName("masanobu", "sato")
