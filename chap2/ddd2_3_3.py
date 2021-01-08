@@ -23,8 +23,8 @@ class FullName:
     リスト2.25のNameクラスを利用したFullNameクラス
 
     Attributes:
-        first_name (str): 名
-        last_name (str): 姓
+        first_name (Name): 名
+        last_name (Name): 姓
     """
     def __init__(self, first_name: Name, last_name: Name):
         if not first_name: raise ValueError("first_nameが定義されていません")
