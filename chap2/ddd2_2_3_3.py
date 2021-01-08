@@ -2,6 +2,8 @@
 2.2.3節のコードの説明
 FullNameクラスの構造を変える例
 """
+from __future__ import annotations # これで自己クラスを型ヒントで使える
+from dataclasses import dataclass
 
 # リスト2.20
 """
