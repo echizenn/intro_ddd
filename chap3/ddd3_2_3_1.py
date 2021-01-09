@@ -1,19 +1,24 @@
 """
-3.2.1節のコードの説明
+3.2.3節のコードの説明
 """
+from typing import Final
 
-# リスト3.2
+from ddd3_2_2 import UserId
+
+# リスト3.5
 class User:
     """
-    可変なオブジェクトに変化させる
+    同一性の判断をするために識別子を追加
 
     Attributes:
+        _id (UserId): ユーザ識別子
         _name (str): ユーザ名
     """
-    def __init__(self, name):
-        self.change_name(name)
+    def __init__(self, id: UserId, name: str):
+        self._id: Final[UserId] = id
+        self.change_user_name(name)
     
-    def change_name(self, name: str):
+    def change_user_name(self, name: str):
         """
         外部からユーザ名を変えられるようにする
 
