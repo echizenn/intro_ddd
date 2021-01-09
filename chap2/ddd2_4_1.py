@@ -1,8 +1,9 @@
 """
 2.4.1節のコードの説明
 """
-from __future__ import annotations # これで自己クラスを型ヒントで使える
+from __future__ import annotations
 from dataclasses import dataclass
+from typing import Final
 
 # リスト2.32
 @dataclass
@@ -15,8 +16,8 @@ class Money:
         amount (float): (お金の)量
         currency (str): 通貨単位(円やドル)
     """
-    amont: float
-    currency: str
+    amount: Final[float]
+    currency: Final[str]
 
     def __add__(self, arg: Money) -> Money:
         """

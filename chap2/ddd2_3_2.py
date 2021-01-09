@@ -2,6 +2,7 @@
 2.3節のコードの説明
 """
 import re
+from typing import Final
 
 # リスト2.24
 class FullName:
@@ -21,8 +22,8 @@ class FullName:
         if not self.validate_name(last_name):
             raise ValueError("許可されていない文字が使われています")
 
-        self.first_name: str = first_name
-        self.last_name: str = last_name
+        self.first_name: Final[str] = first_name
+        self.last_name: Final[str] = last_name
 
     @staticmethod
     def validate_name(value: str) -> bool:

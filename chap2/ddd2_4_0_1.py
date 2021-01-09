@@ -2,6 +2,7 @@
 2.4節のコードの説明
 """
 from dataclasses import dataclass
+from typing import Final
 
 # リスト2.27
 @dataclass
@@ -14,5 +15,5 @@ class Money:
         amount (float): (お金の)量
         currency (str): 通貨単位(円やドル)
     """
-    amount: float
-    currency: str
+    amount: Final[float]
+    currency: Final[str]

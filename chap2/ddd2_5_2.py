@@ -1,6 +1,7 @@
 """
 2.5.2節のコードの説明
 """
+from typing import Final
 
 # リスト2.36
 def list2_36():
@@ -53,4 +54,4 @@ class UserName:
         # ガード節
         if len(value) < 3: raise ValueError("ユーザ名は3文字以上です。")
 
-        self.value = value
+        self.value: Final[str] = value

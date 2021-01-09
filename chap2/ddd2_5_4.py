@@ -1,6 +1,7 @@
 """
 2.5.4節のコードの説明
 """
+from typing import Final
 
 # リスト2.44
 def create_user(name: str):
@@ -59,7 +60,7 @@ class UserName:
     def __init__(self, value: str):
         if len(value) < 3: raise ValueError("ユーザ名は3文字以上です。")
 
-        self.value = value
+        self.value: Final[str] = value
 
 # リスト2.47
 def create_user2(name: str):

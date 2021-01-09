@@ -2,6 +2,7 @@
 2.5.3節のコードの説明
 """
 from dataclasses import dataclass
+from typing import Final
 
 # リスト2.39,43
 def create_user(name: str) -> User:
@@ -31,7 +32,7 @@ class UserId:
     Attributes:
         value (str): ユーザID
     """
-    value: str
+    value: Final[str]
 
 # リスト2.41
 @dataclass
@@ -42,7 +43,7 @@ class UserName:
     Attributes:
         value (str): ユーザ名
     """
-    value: str
+    value: Final[str]
 
 # リスト2.42
 @dataclass

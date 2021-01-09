@@ -2,6 +2,7 @@
 2.5.1節のコードの説明
 """
 from dataclasses import dataclass
+from typing import Final
 
 # リスト2.33
 def list2_33():
@@ -43,9 +44,9 @@ class ModelNumber:
         branch (str): 枝番
         lot (str): ロット番号
     """
-    product_code: str
-    branch: str
-    lot: str
+    product_code: Final[str]
+    branch: Final[str]
+    lot: Final[str]
 
     def __str__(self) -> str:
         return self.product_code + "-" + self.branch + "-" + self.lot

@@ -2,6 +2,7 @@
 2.3節のコードの説明
 """
 from dataclasses import dataclass
+from typing import Final
 
 # リスト2.25
 class Name:
@@ -19,7 +20,7 @@ class Name:
         if not re.fullmatch('[a-zA-Z]+', value):
             raise ValueError("許可されていない文字が使われています")
         
-        self.value: str = value
+        self.value: Final[str] = value
 
 # リスト2.26
 @dataclass
@@ -31,5 +32,5 @@ class FullName:
         first_name (Name): 名
         last_name (Name): 姓
     """
-    first_name: Name
-    last_name: Name
+    first_name: Final[Name]
+    last_name: Final[Name]

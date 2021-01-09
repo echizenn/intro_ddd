@@ -2,6 +2,7 @@
 2.3節のコードの説明
 """
 from dataclasses import dataclass
+from typing import Final # 再代入不可能という型ヒント
 
 # リスト2.21
 @dataclass
@@ -13,8 +14,8 @@ class FullName:
         first_name (FirstName): 名を表すオブジェクト
         last_name (LastName): 姓を表すオブジェクト
     """
-    first_name: FirstName
-    last_name: LastName
+    first_name: Final[FirstName]
+    last_name: Final[LastName]
 
 # リスト2.22
 @dataclass
@@ -25,7 +26,7 @@ class FirstName:
     Attributes:
         value (str): 名前
     """
-    value: str
+    value: Final[str]
 
 # リスト2.23
 @dataclass
@@ -36,4 +37,4 @@ class LastName:
     Attributes:
         value (str): 姓
     """
-    value: str
+    value: Final[str]
