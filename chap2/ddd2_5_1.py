@@ -40,13 +40,49 @@ class ModelNumber:
     製品番号を表す値オブジェクト
 
     Attributes:
-        product_code (str): プロダクトコード
-        branch (str): 枝番
-        lot (str): ロット番号
+        _product_code (str): プロダクトコード
+        _branch (str): 枝番
+        _lot (str): ロット番号
     """
-    product_code: Final[str]
-    branch: Final[str]
-    lot: Final[str]
+    _product_code: Final[str]
+    _branch: Final[str]
+    _lot: Final[str]
 
     def __str__(self) -> str:
         return self.product_code + "-" + self.branch + "-" + self.lot
+
+    @property
+    def product_code(self) -> str:
+        """
+        外部からproduct_codeを取得できるようにする
+
+        Args: None
+
+        Returns:
+            str: プロダクトコード
+        """
+        return self._product_code
+    
+    @property
+    def branch(self) -> str:
+        """
+        外部からbranchを取得できるようにする
+
+        Args: None
+
+        Returns:
+            str: 枝番
+        """
+        return self._branch
+
+    @property
+    def lot(self) -> str:
+        """
+        外部からlotを取得できるようにする
+
+        Args: None
+
+        Returns:
+            str: ロット番号
+        """
+        return self.lot

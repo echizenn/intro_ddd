@@ -30,9 +30,9 @@ class UserId:
     ユーザIDの値オブジェクト
 
     Attributes:
-        value (str): ユーザID
+        _value (str): ユーザID
     """
-    value: Final[str]
+    _value: Final[str]
 
 # リスト2.41
 @dataclass
@@ -41,9 +41,9 @@ class UserName:
     ユーザ名の値オブジェクト
 
     Attributes:
-        value (str): ユーザ名
+        _value (str): ユーザ名
     """
-    value: Final[str]
+    _value: Final[str]
 
 # リスト2.42
 @dataclass

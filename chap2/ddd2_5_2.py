@@ -42,7 +42,7 @@ class UserName:
     ユーザ名を表す値オブジェクト
 
     Attributes:
-        value (str): ユーザ名の値
+        _value (str): ユーザ名の値
         
     Raises:
         ValueError: ユーザ名が3文字未満のとき
@@ -54,4 +54,15 @@ class UserName:
         # ガード節
         if len(value) < 3: raise ValueError("ユーザ名は3文字以上です。")
 
-        self.value: Final[str] = value
+        self._value: Final[str] = value
+
+    def value(self) -> str:
+        """
+        外部からvalueを取得できるようにする
+
+        Args: None
+
+        Returns:
+            str: ユーザ名の値
+        """
+        return self._value

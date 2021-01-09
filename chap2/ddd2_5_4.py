@@ -49,7 +49,7 @@ class UserName:
     値オブジェクトにルールをまとめる
 
     Attributes:
-        value (str): ユーザ名
+        _value (str): ユーザ名
 
     Raises:
         ValueError: ユーザ名が3文字未満のとき
@@ -60,7 +60,7 @@ class UserName:
     def __init__(self, value: str):
         if len(value) < 3: raise ValueError("ユーザ名は3文字以上です。")
 
-        self.value: Final[str] = value
+        self._value: Final[str] = value
 
 # リスト2.47
 def create_user2(name: str):
