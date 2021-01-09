@@ -17,27 +17,3 @@ class Money:
     """
     _amount: Final[float]
     _currency: Final[str]
-
-    @property
-    def amount(self) -> float:
-        """
-        外部からamountを取得できるようにする
-
-        Args: None
-
-        Returns:
-            float: お金の量
-        """
-        return self._amount
-    
-    @property
-    def currency(self)-> str:
-        """
-        外部からcurrencyを取得できるようにする
-
-        Args: None
-
-        Returns:
-            str: 通貨単位(円やドル)
-        """
-        return self._currency

@@ -24,7 +24,7 @@ def create_user(name: str) -> User:
     return user
 
 # リスト2.40
-@dataclass
+@dataclass(frozen=True)
 class UserId:
     """
     ユーザIDの値オブジェクト
@@ -35,7 +35,7 @@ class UserId:
     _value: Final[str]
 
 # リスト2.41
-@dataclass
+@dataclass(frozen=True)
 class UserName:
     """
     ユーザ名の値オブジェクト
@@ -46,7 +46,7 @@ class UserName:
     _value: Final[str]
 
 # リスト2.42
-@dataclass
+@dataclass(frozen=True)
 class User:
     """
     値オブジェクトを利用するように変更したUserクラス

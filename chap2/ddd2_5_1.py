@@ -2,7 +2,7 @@
 2.5.1節のコードの説明
 """
 from dataclasses import dataclass
-from typing import Final
+from typing import Final, NamedTuple
 
 # リスト2.33
 def list2_33():
@@ -34,8 +34,7 @@ def list2_34(model_number: str): # かろうじて文字列であることはわ
     pass
 
 # リスト2.35
-@dataclass
-class ModelNumber:
+class ModelNumber(NamedTuple):
     """
     製品番号を表す値オブジェクト
 
@@ -50,39 +49,3 @@ class ModelNumber:
 
     def __str__(self) -> str:
         return self.product_code + "-" + self.branch + "-" + self.lot
-
-    @property
-    def product_code(self) -> str:
-        """
-        外部からproduct_codeを取得できるようにする
-
-        Args: None
-
-        Returns:
-            str: プロダクトコード
-        """
-        return self._product_code
-    
-    @property
-    def branch(self) -> str:
-        """
-        外部からbranchを取得できるようにする
-
-        Args: None
-
-        Returns:
-            str: 枝番
-        """
-        return self._branch
-
-    @property
-    def lot(self) -> str:
-        """
-        外部からlotを取得できるようにする
-
-        Args: None
-
-        Returns:
-            str: ロット番号
-        """
-        return self.lot

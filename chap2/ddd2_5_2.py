@@ -55,14 +55,3 @@ class UserName:
         if len(value) < 3: raise ValueError("ユーザ名は3文字以上です。")
 
         self._value: Final[str] = value
-
-    def value(self) -> str:
-        """
-        外部からvalueを取得できるようにする
-
-        Args: None
-
-        Returns:
-            str: ユーザ名の値
-        """
-        return self._value

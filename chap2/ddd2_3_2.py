@@ -15,6 +15,9 @@ class FullName:
 
     Raises:
         ValueRrror: 姓名にアルファベット以外が使われているとき
+
+    Note:
+        この状態ではインスタンス同士の比較はできないです。
     """
     def __init__(self, first_name: str, last_name: str):
         if not self._validate_name(first_name):
@@ -29,27 +32,3 @@ class FullName:
     def _validate_name(value: str) -> bool:
         # アルファベットに限定する
         return re.fullmatch('[a-zA-Z]+', value)
-
-    @property
-    def first_name(self) -> str:
-        """
-        外部からfirst_nameを取得できるようにする
-
-        Args: None
-
-        Returns:
-            str: 名
-        """
-        return self._first_name
-
-    @property
-    def last_name(self) -> str:
-        """
-        外部からlast_nameを取得できるようにする
-
-        Args: None
-
-        Returns:
-            str: 姓
-        """
-        return self._last_name

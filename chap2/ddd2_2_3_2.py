@@ -7,10 +7,14 @@ from dataclasses import dataclass
 
 # リスト2.18
 """
-dataclassを用いることで、自動で
-__init__, __repr__, __eq__
-を生成してくれるので、equalメソッドの実装は不要だが、
-オーバーライド可能なので、学習のため実装する。
+Pythonでの簡単な値オブジェクトの実装は
+NamedTupleを使うのがいいと思われる(getを実装する場合)。
+Immutableということを伝えらえる上、
+値の比較もインスタンス変数同士での比較をしてくれる。
+ここでは学習のため__eq__関数を実装している。
+
+getを実装しない場合は、dataclass(frozen=True)で
+private変数として実装するのがいいと思われる。
 """
 @dataclass
 class FullName:

@@ -19,30 +19,6 @@ class Money:
     _amount: Final[float]
     _currency: Final[str]
 
-    @property
-    def amount(self) -> float:
-        """
-        外部からamountを取得できるようにする
-
-        Args: None
-
-        Returns:
-            float: お金の量
-        """
-        return self._amount
-
-    @property
-    def currency(self) -> str:
-        """
-        外部からcurrencyを取得できるようにする
-
-        Args: None
-
-        Returns:
-            str: 通貨単位(円やドル)
-        """
-        return self._currency
-
     def __add__(self, arg: Money) -> Money:
         """
         お金の加算操作、通貨単位が異なるとエラーが出る
@@ -59,11 +35,11 @@ class Money:
         Note:
             pythonは+演算子を実行すると、__add__メソッドを呼ぶ
         """
-        if self.currency != arg.currency:
+        if self._currency != arg._currency:
             raise ValueError("通貨単位が異なります" \
-                    "(self:{}, arg:{})".format(self.currency, arg.currency))
+                    "(self:{}, arg:{})".format(self._currency, arg._currency))
         
-        return Money(self.amount + arg.amount, self.currency)
+        return Money(self.amount + arg.amount, self._currency)
 
     def multiply(self, rate: Rate):
         """

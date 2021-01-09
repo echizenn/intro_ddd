@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from typing import Final # 再代入不可能という型ヒント
 
 # リスト2.21
-@dataclass
+@dataclass(frozen=True)
 class FullName:
     """
     可能な限り値オブジェクトを適用したFullNameクラス
@@ -13,12 +13,16 @@ class FullName:
     Attributes:
         _first_name (FirstName): 名を表すオブジェクト
         _last_name (LastName): 姓を表すオブジェクト
+
+    Note:
+        _first_nameと_last_nameはprivate変数なので
+        そもそも外部には見せない想定。
     """
     _first_name: Final[FirstName]
     _last_name: Final[LastName]
 
 # リスト2.22
-@dataclass
+@dataclass(frozen=True)
 class FirstName:
     """
     名を表す値オブジェクト
@@ -28,20 +32,8 @@ class FirstName:
     """
     _value: Final[str]
 
-    @property
-    def value(self) -> str:
-        """
-        外部からvalueを取得できるようにする
-
-        Args: None
-
-        Returns:
-            str: 名前
-        """
-        return self._value
-
 # リスト2.23
-@dataclass
+@dataclass(frozen=True)
 class LastName:
     """
     姓を表す値オブジェクト
@@ -50,15 +42,3 @@ class LastName:
         _value (str): 姓
     """
     _value: Final[str]
-
-    @property
-    def value(self) -> str:
-        """
-        外部からvalueを取得できるようにする
-
-        Args: None
-
-        Returns:
-            str: 姓
-        """
-        return self._value
