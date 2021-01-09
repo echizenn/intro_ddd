@@ -13,6 +13,29 @@ class User:
     Attributes:
         _id (UserId): ユーザ識別子
         _name (str): ユーザ名
+
+    Note:
+        実際にこのクラスを使う際は、setterをつけることになると思う。
+        その場合
+        https://florimond.dev/blog/articles/2018/10/reconciling-dataclasses-and-properties-in-python/
+        この記事を参考に実装するのがいいと思われる。
+
+        from dataclasses import dataclass, field
+
+
+        @dataclass
+        class Vehicle:
+
+            wheels: int
+            _wheels: int = field(init=False, repr=False)
+
+            @property
+            def wheels(self) -> int:
+                return self._wheels
+
+            @wheels.setter
+            def wheels(self, wheels: int):
+                self._wheels = wheels
     """
     def __init__(self, id: UserId, name: str):
         self._id: Final[UserId] = id
