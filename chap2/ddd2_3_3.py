@@ -1,6 +1,7 @@
 """
 2.3節のコードの説明
 """
+from dataclasses import dataclass
 
 # リスト2.25
 class Name:
@@ -9,6 +10,9 @@ class Name:
 
     Attributes:
         value (str): 名前、アルファベットのみで構成される
+
+    Raises:
+        ValueError: アルファベット以外が名前として使われているとき
     """
     def __init__(self, value: str):
         if not value: raise ValueError("valueが定義されていません")
@@ -18,6 +22,7 @@ class Name:
         self.value: str = value
 
 # リスト2.26
+@dataclass
 class FullName:
     """
     リスト2.25のNameクラスを利用したFullNameクラス
@@ -26,9 +31,5 @@ class FullName:
         first_name (Name): 名
         last_name (Name): 姓
     """
-    def __init__(self, first_name: Name, last_name: Name):
-        if not first_name: raise ValueError("first_nameが定義されていません")
-        if not last_name: raise ValueError("last_nameが定義されていません")
-
-        self.first_name: Name = first_name
-        self.last_name: Name = last_name
+    first_name: Name
+    last_name: Name

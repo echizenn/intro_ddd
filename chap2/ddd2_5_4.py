@@ -12,6 +12,9 @@ def create_user(name: str):
     
     Returns: None
 
+    Raises:
+        ValueError: ユーザ名が3文字未満のとき
+        
     Note:
         一見うまくいっているように見えるユーザ作成処理コード
         Userクラス実装していないので動かないです
@@ -29,6 +32,9 @@ def update_user(id: str, name: str):
     
     Returns: None
 
+    Raises:
+        ValueError: ユーザ名が3文字未満のとき
+
     Note:
         ユーザ情報更新処理でも同じ処理を反復していることを確認する
         Userクラス実装していないので動かないです
@@ -43,6 +49,9 @@ class UserName:
 
     Attributes:
         value (str): ユーザ名
+
+    Raises:
+        ValueError: ユーザ名が3文字未満のとき
 
     Note:
         ガード節を書いてオブジェクト作成時に不正な値ではないか確認する。

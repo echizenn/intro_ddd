@@ -27,6 +27,9 @@ class Money:
         
         Returns:
             Money: 加算結果のお金
+
+        Raises:
+            ValueError: 通貨単位が異なる和算をしているとき
         
         Note:
             pythonは+演算子を実行すると、__add__メソッドを呼ぶ

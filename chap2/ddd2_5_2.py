@@ -18,6 +18,17 @@ def list2_36():
 
 # リスト2.37
 def list2_37(user_name: str):
+    """
+    値を利用する前にルールに照らし合わせる必要がある
+
+    Args:
+        user_name (str): ユーザ名
+    
+    Returns: None
+
+    Raises:
+        ValueError: ユーザ名が3文字未満のとき
+    """
     if len(user_name) >= 3:
         # 正常な値なので処理を継続する
         pass
@@ -31,7 +42,10 @@ class UserName:
 
     Attributes:
         value (str): ユーザ名の値
-    
+        
+    Raises:
+        ValueError: ユーザ名が3文字未満のとき
+
     Note:
         ガード節によって不正な値の存在を考える必要がなくなる
     """

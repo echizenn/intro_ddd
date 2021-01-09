@@ -17,6 +17,7 @@ class FullName:
     last_name: LastName
 
 # リスト2.22
+@dataclass
 class FirstName:
     """
     名を表す値オブジェクト
@@ -24,11 +25,10 @@ class FirstName:
     Attributes:
         value (str): 名前
     """
-    def __init__(self, value: str):
-        if not value: raise ValueError("1文字以上である必要があります。")
-        self.value: str = value
+    value: str
 
 # リスト2.23
+@dataclass
 class LastName:
     """
     姓を表す値オブジェクト
@@ -36,6 +36,4 @@ class LastName:
     Attributes:
         value (str): 姓
     """
-    def __init__(self, value: str):
-        if not value: raise ValueError("1文字以上である必要があります。")
-        self.value: str = value
+    value: str
