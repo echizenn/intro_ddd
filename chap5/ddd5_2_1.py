@@ -23,7 +23,7 @@ class Program:
 
         user_service: UserService = UserService()
         if user_service.exists(user):
-            raise ValueError("{}はすでに存在しています".format(user_name))
+            raise ValueError(f"{user_name}はすでに存在しています")
 
         # SQL接続コードをこの後書いているが
         # pythonで書き直すのは面倒+本質的でないので変数の説明のみ

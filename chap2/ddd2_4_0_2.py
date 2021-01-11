@@ -38,7 +38,7 @@ class Money:
         """
         if self._currency != arg._currency:
             raise ValueError("通貨単位が異なります" \
-                    "(self:{}, arg:{})".format(self._currency, arg._currency))
+                    f"(self:{self._currenc}, arg:{arg._currency})")
         
         return Money(self.amount + arg.amount, self._currency)
 

@@ -33,7 +33,7 @@ class Program:
 
         user_service: UserService = UserService(self._user_repository)
         if user_service.exists(user):
-            raise ValueError("{}はすでに存在しています".format(user_name))
+            raise ValueError(f"{user_name}はすでに存在しています")
 
         _user_repository.save(user)
 
