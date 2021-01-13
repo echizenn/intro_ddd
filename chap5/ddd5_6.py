@@ -4,6 +4,7 @@
 from typing import Dict, Optional
 import unittest
 from ddd5_3_1 import IUserRepository
+
 # リスト5.13
 class InMemoryUserRepository(IUserRepository):
     """
