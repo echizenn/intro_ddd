@@ -101,7 +101,7 @@ class UserApplicationService:
             コマンドオブジェクトを利用するように変更した
             情報変更があっても引数が変化しない
         """
-        target_id: UserId = UserId(user_id)
+        target_id: UserId = UserId(command.id)
         user: Optional[User] = self._user_repository.find(target_id)
 
         if user is None: raise ValueError("user_idの値が不適切です")
