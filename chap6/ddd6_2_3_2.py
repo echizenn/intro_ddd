@@ -69,7 +69,7 @@ class UserApplicationService:
             UserData: ユーザのデータ転送用オブジェクト
         """
         target_id: UserId = UserId(user_id)
-        user: User = self._user_repository.find(target_id)
+        user: User = self._user_repository.find_by_id(target_id)
 
         user_data: UserData = UserData(user.id.value, user.name.value)
         return user_data

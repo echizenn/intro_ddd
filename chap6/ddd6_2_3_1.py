@@ -49,7 +49,7 @@ class UserApplicationService:
             User: ユーザオブジェクト
         """
         target_id: UserId = UserId(user_id)
-        user: User = self._user_repository.find(target_id)
+        user: User = self._user_repository.find_by_id(target_id)
 
         return user
 

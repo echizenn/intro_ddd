@@ -94,7 +94,7 @@ class UserApplicationService:
             ドメインで変更があっても影響を受けなくなった
         """
         target_id: UserId = UserId(user_id)
-        user: User = self._user_repository.find(target_id)
+        user: User = self._user_repository.(target_id)
 
         if user is None: return None
         

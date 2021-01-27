@@ -53,7 +53,7 @@ class UserApplicationService:
             ドメインで変更があっても影響を受けなくなった
         """
         target_id: UserId = UserId(user_id)
-        user: User = self._user_repository.find(target_id)
+        user: User = self._user_repository.find_by_id(target_id)
 
         if user is None: return None
         
@@ -77,7 +77,7 @@ class UserApplicationService:
             情報変更があっても引数が変化しない
         """
         target_id: UserId = UserId(user_id)
-        user: Optional[User] = self._user_repository.find(target_id)
+        user: Optional[User] = self._user_repository.find_by_id(target_id)
 
         if user is None: raise ValueError("user_idの値が不適切です")
 
@@ -105,7 +105,7 @@ class UserApplicationService:
         Returns: None
         """
         target_id: UserId = UserId(command.id)
-        user: User = self._user_repository.find(target_id)
+        user: User = self._user_repository.find_by_id(target_id)
 
         # 対象が見つからなかった場合は退会成功とする
         if user is None: return
