@@ -5,7 +5,7 @@
 from abc import ABCMeta, abstractmethod
 from dataclasses import dataclass
 import uuid
-from typing import Final
+from typing import Final, Optional
 
 # リスト6.1
 @dataclass
@@ -114,7 +114,7 @@ class IUserRepository(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def find_by_name(self, name: UserName) -> User:
+    def find_by_name(self, name: UserName) -> Optional[User]:
         """
         ユーザ名によるインスタンスの復元
 
@@ -122,12 +122,12 @@ class IUserRepository(metaclass=ABCMeta):
             name (UserName): 探したいユーザ名
         
         Returns:
-            User: 見つかったUserインスタンス(ない場合はNone)
+            Optional[User]: 見つかったUserインスタンス(ない場合はNone)
         """
         pass
 
     @abstractmethod
-    def find_by_id(self, id: UserName) -> User:
+    def find_by_id(self, id: UserName) -> Optional[User]:
         """
         ユーザ名によるインスタンスの復元
 
@@ -135,7 +135,7 @@ class IUserRepository(metaclass=ABCMeta):
             id (UserId): 探したいユーザid
         
         Returns:
-            User: 見つかったUserインスタンス(ない場合はNone)
+            Optional[User]: 見つかったUserインスタンス(ない場合はNone)
         """
         pass
 
