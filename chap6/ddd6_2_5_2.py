@@ -59,12 +59,12 @@ class UserApplicationService:
         
         return UserData(user)
 
-    def update(self, command: UserUpdateCommand):
+    def update(self, command: UserDeleteCommand):
         """
         ユーザ名の変更を行う更新処理
 
         Args:
-            command (UserUpdateCommand): コマンドオブジェクト
+            command (UserDeleteCommand): コマンドオブジェクト
 
         Returns: None
 

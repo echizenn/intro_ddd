@@ -95,12 +95,12 @@ class UserApplicationService:
         
         self._user_repository.save(user)
 
-    def delete(command: UserUpdateCommand):
+    def delete(command: UserDeleteCommand):
         """
         退会処理
 
         Args:
-            command (UserUpdateCommand): 退会したいユーザのコマンドオブジェクト
+            command (UserDeleteCommand): 退会したいユーザのコマンドオブジェクト
 
         Returns: None
 
