@@ -31,7 +31,7 @@ class InMemoryUserRepository(IUserRepository):
             lambda user: user.name == user_name, self.store.values()
             ), None)
 
-        if not target is None:
+        if target is not None:
             return self.clone(target)
         else:
             None
