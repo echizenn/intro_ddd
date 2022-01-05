@@ -32,7 +32,7 @@ def list2_2():
         split関数を用いて姓だけを表示する
     """
     fullname: str = "naruse masanobu"
-    tokens: List[str] = fullname.split() # ["naruse", "masanobu"]という配列に
+    tokens: List[str] = fullname.split() # ["naruse", "masanobu"]という配列にしている
     last_name: str = tokens[0]
     print(last_name) # naruseが表示される
 
