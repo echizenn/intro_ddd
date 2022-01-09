@@ -72,6 +72,8 @@ class UserApplicationService():
 # リスト9.7
 @dataclasses.dataclass
 class InMemoryUserFactory(IUserFactory):
+    """
+    インメモリで動作するファクトリ"""
     current_id: Final[int]
 
     def create(self, name: UserName) -> User:
