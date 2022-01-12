@@ -2,6 +2,7 @@
 2.3節のコードの説明
 """
 from dataclasses import dataclass
+import re
 from typing import Final
 
 # リスト2.25
