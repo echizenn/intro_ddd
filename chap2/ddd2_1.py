@@ -63,8 +63,16 @@ class FullName:
         first_name (str): 名
         last_name (str): 姓
     """
-    first_name: str
-    last_name: str
+    _first_name: str
+    _last_name: str
+
+    @property
+    def first_name(self):
+        return self._first_name
+
+    @property
+    def last_name(self):
+        return self._last_name
 
 # リスト2.5
 def list2_5():
