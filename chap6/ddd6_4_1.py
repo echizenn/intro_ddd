@@ -1,12 +1,12 @@
 """
 6.4.1節のコードの説明
 """
-from dataclasses import dataclass
+import dataclasses
 from typing import Final
 from ddd6_2_1 import IUserRepository, User, UserName, UserId
 
 # リスト6.32
-@dataclass
+@dataclasses.dataclass
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス
@@ -114,7 +114,7 @@ class UserApplicationService:
 
 
 # リスト6.33
-@dataclass
+@dataclasses.dataclass
 class UserRegisterService:
     """
     ユーザ登録処理クラス
@@ -146,7 +146,7 @@ class UserRegisterService:
         
 
 # リスト6.34
-@dataclass
+@dataclasses.dataclass
 class UserDeleteService:
     """
     ユーザ退会処理クラス

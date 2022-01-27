@@ -20,7 +20,7 @@ class User:
         https://florimond.dev/blog/articles/2018/10/reconciling-dataclasses-and-properties-in-python/
         この記事を参考に実装するのがいいと思われる。
 
-        from dataclasses import dataclass, field
+        import dataclasses, field
 
 
         @dataclass

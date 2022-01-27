@@ -1,11 +1,11 @@
 """
 2.4節のコードの説明
 """
-from dataclasses import dataclass
+import dataclasses
 from typing import Final
 
 # リスト2.27
-@dataclass
+@dataclasses.dataclass
 class Money:
     """
     量と通貨単位を属性にもつお金オブジェクト

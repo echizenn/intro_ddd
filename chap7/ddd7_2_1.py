@@ -2,7 +2,7 @@
 7.2節のコードの説明
 """
 from abc import ABCMeta, abstractmethod
-from dataclasses import dataclass
+import dataclasses
 
 # リスト7.1
 class ObjectA:
@@ -46,7 +46,7 @@ class UserRepository(IUserRepository):
 
 
 # リスト7.3
-@dataclass
+@dataclasses.dataclass
 class UserApplicationService:
     """
     ユーザーのアプリケーションサービス

@@ -2,13 +2,13 @@
 6.3節のコードの解説
 """
 from abc import ABCMeta, abstractmethod
-from dataclasses import dataclass
+import dataclasses
 from typing import Optional
 
 from ddd6_2_1 import IUserRepository, User, UserName, UserId
 
 
-@dataclass
+@dataclasses.dataclass
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス
@@ -122,7 +122,7 @@ class UserApplicationService:
 
 
 # リスト6.29
-@dataclass
+@dataclasses.dataclass
 class UserService:
     """
     ユーザのドメインサービス

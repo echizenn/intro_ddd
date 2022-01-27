@@ -3,7 +3,7 @@
 FullNameクラスを作り直すので新しいファイルにした
 """
 from __future__ import annotations # これで自己クラスを型ヒントで使える
-from dataclasses import dataclass
+import dataclasses
 
 # リスト2.18
 """
@@ -16,7 +16,7 @@ Immutableということを伝えらえる上、
 getを実装しない場合は、dataclass(frozen=True)で
 private変数として実装するのがいいと思われる。
 """
-@dataclass
+@dataclasses.dataclass
 class FullName:
     """
     氏名を表現するクラス

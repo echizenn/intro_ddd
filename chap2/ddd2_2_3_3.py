@@ -3,7 +3,7 @@
 FullNameクラスの構造を変える例
 """
 from __future__ import annotations # これで自己クラスを型ヒントで使える
-from dataclasses import dataclass
+import dataclasses
 
 # リスト2.20
 """
@@ -12,7 +12,7 @@ __init__, __repr__, __eq__
 を生成してくれるので、equalメソッドの実装は不要だが、
 オーバーライド可能なので、学習のため実装する。
 """
-@dataclass
+@dataclasses.dataclass
 class FullName:
     """
     氏名を表現するクラス

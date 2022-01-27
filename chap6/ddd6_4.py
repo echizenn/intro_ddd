@@ -1,10 +1,10 @@
 """
 6.4節のコードの説明
 """
-from dataclasses import dataclass
+import dataclasses
 
 # リスト6.30
-@dataclass
+@dataclasses.dataclass
 class LowCohesion:
     """
     凝集度が低いクラス
@@ -27,7 +27,7 @@ class LowCohesion:
         return self._value3 + self._value4
 
 # リスト6.31
-@dataclass
+@dataclasses.dataclass
 class HighCohesionA:
     """
     分離することで凝集度を高めたクラス
@@ -43,7 +43,7 @@ class HighCohesionA:
         return self._value1 + self._value2
 
 
-@dataclass
+@dataclasses.dataclass
 class HighCohesionB:
     """
     凝集度が低いクラス

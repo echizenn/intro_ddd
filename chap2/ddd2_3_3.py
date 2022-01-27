@@ -1,7 +1,7 @@
 """
 2.3節のコードの説明
 """
-from dataclasses import dataclass
+import dataclasses
 import re
 from typing import Final
 

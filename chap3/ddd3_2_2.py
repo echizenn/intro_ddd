@@ -1,7 +1,7 @@
 """
 3.2.2節のコードの説明
 """
-from dataclasses import dataclass
+import dataclasses
 from typing import Final
 
 # リスト3.4

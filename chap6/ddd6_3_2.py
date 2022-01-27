@@ -2,7 +2,7 @@
 6.3節のコードの解説
 """
 from abc import ABCMeta, abstractmethod
-from dataclasses import dataclass
+import dataclasses
 from typing import Optional
 
 from ddd6_2_1 import UserService, User, UserName, UserId
@@ -76,7 +76,7 @@ class IUserRepository(metaclass=ABCMeta):
         pass
 
 
-@dataclass
+@dataclasses.dataclass
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス

@@ -1,7 +1,7 @@
 """
 2.3節のコードの説明
 """
-from dataclasses import dataclass
+import dataclasses
 from typing import Final # 再代入不可能という型ヒント
 
 # リスト2.21

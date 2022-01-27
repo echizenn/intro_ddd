@@ -1,13 +1,13 @@
 """
 6.2.3節のコードの説明
 """
-from dataclasses import dataclass
+import dataclasses
 from typing import Final
 
 from ddd6_2_1 import IUserRepository, UserService, User, UserName, UserId
 
 # リスト6.6
-@dataclass
+@dataclasses.dataclass
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス
@@ -54,7 +54,7 @@ class UserApplicationService:
         return user
 
 # リスト6.7
-@dataclass
+@dataclasses.dataclass
 class Client:
     """
     ドメインオブジェクトのメソッドの意図せぬ呼び出し
