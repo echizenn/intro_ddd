@@ -55,7 +55,7 @@ def list2_3():
 
 # リスト2.4
 @dataclasses.dataclass
-class FullName(object):
+class FullName:
     """
     氏名を表現するクラス
 
