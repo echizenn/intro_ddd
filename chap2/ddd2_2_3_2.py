@@ -25,8 +25,16 @@ class FullName:
         first_name (str): 名
         last_name (str): 姓
     """
-    first_name: str
-    last_name: str
+    _first_name: str
+    _last_name: str
+
+    @property
+    def first_name(self):
+        return self._first_name
+
+    @property
+    def last_name(self):
+        return self._last_name
 
     def __eq__(self, other: FullName) -> bool:
         """
@@ -39,5 +47,5 @@ class FullName:
             bool: 同値性をもつ場合True
         """
         if type(self) != type(other): return False # 型が異なるときはFalseを返す
-        return (self.first_name == other.first_name
-                and self.last_name == other.last_name)
+        return (self._first_name == other._first_name
+                and self._last_name == other._last_name)
