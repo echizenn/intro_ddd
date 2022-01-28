@@ -21,9 +21,9 @@ class FullName:
     """
     def __init__(self, first_name: str, last_name: str):
         if not self._validate_name(first_name):
-            raise ArgumentExceptioon("許可されていない文字が使われています。", str(first_name))
+            raise ArgumentException("許可されていない文字が使われています。", str(first_name))
         if not self._validate_name(last_name):
-            raise ArgumentExceptioon("許可されていない文字が使われています。", str(last_name))
+            raise ArgumentException("許可されていない文字が使われています。", str(last_name))
 
         self._first_name: Final[str] = first_name
         self._last_name: Final[str] = last_name
