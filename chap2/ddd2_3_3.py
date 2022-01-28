@@ -25,7 +25,7 @@ class Name:
 
 
 # リスト2.26
-@dataclass(frozen=True)
+@dataclasses.dataclass(frozen=True)
 class FullName:
     """
     リスト2.25のNameクラスを利用したFullNameクラス
