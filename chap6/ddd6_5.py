@@ -2,7 +2,7 @@
 6.5節のコードの説明
 """
 from abc import ABCMeta, abstractmethod
-from dataclasses import dataclass
+import dataclasses
 
 # リスト6.35
 class IUserRegisterService(metaclass=ABCMeta):
@@ -25,7 +25,7 @@ class IUserRegisterService(metaclass=ABCMeta):
 
 
 # リスト6.36
-@dataclass
+@dataclasses.dataclass
 class Client:
     """
     クライアントはインターフェースを利用する

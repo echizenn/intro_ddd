@@ -1,7 +1,7 @@
 """
 6.2.3節のコードの説明
 """
-from dataclasses import dataclass
+import dataclasses
 from typing import Final, Optional
 
 from ddd6_2_1 import IUserRepository, UserService, User, UserName, UserId
@@ -49,7 +49,7 @@ def list6_12(user: User):
     user_data: UserData = UserData(user)
 
 # リスト6.14
-@dataclass
+@dataclasses.dataclass
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス

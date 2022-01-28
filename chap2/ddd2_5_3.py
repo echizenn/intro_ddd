@@ -1,8 +1,44 @@
 """
 2.5.3節のコードの説明
 """
-from dataclasses import dataclass
+import dataclasses
 from typing import Final
+
+# リスト2.40
+@dataclasses.dataclass(frozen=True)
+class UserId:
+    """
+    ユーザIDの値オブジェクト
+
+    Attributes:
+        _value (str): ユーザID
+    """
+    _value: Final[str]
+
+# リスト2.41
+@dataclasses.dataclass(frozen=True)
+class UserName:
+    """
+    ユーザ名の値オブジェクト
+
+    Attributes:
+        _value (str): ユーザ名
+    """
+    _value: Final[str]
+
+# リスト2.42
+@dataclasses.dataclass(frozen=True)
+class User:
+    """
+    値オブジェクトを利用するように変更したUserクラス
+
+    Attributes:
+        id (UserId): ユーザIDの値オブジェクト
+        name (UserName): ユーザ名の値オブジェクト
+    """
+    # 初期値がないとpythonだとUser()でエラーが出るので初期値入力した
+    id: UserId = UserId("1")
+    name: UserName = UserName("masanobu")
 
 # リスト2.39,43
 def create_user(name: str) -> User:
@@ -22,40 +58,4 @@ def create_user(name: str) -> User:
     user: User = User()
     user.id = name # コンパイルエラー(mypyを使うとpythonでもエラー出してくれる)
     return user
-
-# リスト2.40
-@dataclass(frozen=True)
-class UserId:
-    """
-    ユーザIDの値オブジェクト
-
-    Attributes:
-        _value (str): ユーザID
-    """
-    _value: Final[str]
-
-# リスト2.41
-@dataclass(frozen=True)
-class UserName:
-    """
-    ユーザ名の値オブジェクト
-
-    Attributes:
-        _value (str): ユーザ名
-    """
-    _value: Final[str]
-
-# リスト2.42
-@dataclass(frozen=True)
-class User:
-    """
-    値オブジェクトを利用するように変更したUserクラス
-
-    Attributes:
-        id (UserId): ユーザIDの値オブジェクト
-        name (UserName): ユーザ名の値オブジェクト
-    """
-    # 初期値がないとpythonだとUser()でエラーが出るので初期値入力した
-    id: UserId = UserId("1")
-    name: UserName = UserName("masanobu")
     

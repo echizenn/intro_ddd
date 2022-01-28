@@ -1,13 +1,13 @@
 """
 6.6節のコードの説明
 """
-from dataclasses import dataclass
+import dataclasses
 
 # リスト6.39
 # ddd6_4.pyなど参照
 
 # リスト6.40
-@dataclass
+@dataclasses.dataclass
 class UserApplicationService:
     """
     自身のふるまいを変化させる目的で状態を持つサービスの例

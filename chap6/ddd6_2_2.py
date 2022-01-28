@@ -1,13 +1,13 @@
 """
 6.2.2節のコードの説明
 """
-from dataclasses import dataclass
+import dataclasses
 from typing import Final
 
 from ddd6_2_1 import IUserRepository, UserService, User, UserName
 
 # リスト6.5
-@dataclass
+@dataclasses.dataclass
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス

@@ -3,7 +3,7 @@
 FullNameクラスを作り直すので新しいファイルにした
 """
 from __future__ import annotations # これで自己クラスを型ヒントで使える
-from dataclasses import dataclass
+import dataclasses
 
 # リスト2.18
 """
@@ -16,7 +16,7 @@ Immutableということを伝えらえる上、
 getを実装しない場合は、dataclass(frozen=True)で
 private変数として実装するのがいいと思われる。
 """
-@dataclass
+@dataclasses.dataclass
 class FullName:
     """
     氏名を表現するクラス
@@ -25,8 +25,16 @@ class FullName:
         first_name (str): 名
         last_name (str): 姓
     """
-    first_name: str
-    last_name: str
+    _first_name: str
+    _last_name: str
+
+    @property
+    def first_name(self):
+        return self._first_name
+
+    @property
+    def last_name(self):
+        return self._last_name
 
     def __eq__(self, other: FullName) -> bool:
         """
@@ -39,5 +47,5 @@ class FullName:
             bool: 同値性をもつ場合True
         """
         if type(self) != type(other): return False # 型が異なるときはFalseを返す
-        return (self.first_name == other.first_name
-                and self.last_name == other.last_name)
+        return (self._first_name == other._first_name
+                and self._last_name == other._last_name)

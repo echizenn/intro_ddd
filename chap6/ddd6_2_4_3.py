@@ -1,7 +1,7 @@
 """
 6.2.4節のコードの説明
 """
-from dataclasses import dataclass
+import dataclasses
 from typing import Final, Optional
 
 from ddd6_2_1 import IUserRepository, UserService, User, UserName, UserId
@@ -33,7 +33,7 @@ class UserUpdateCommand:
         return self._mail_address
 
 # リスト6.18
-@dataclass
+@dataclasses.dataclass
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス

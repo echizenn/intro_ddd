@@ -2,11 +2,11 @@
 2.4節のコードの説明
 """
 from __future__ import annotations # これで自己クラスを型ヒントで使える
-from dataclasses import dataclass
+import dataclasses
 from typing import Final
 
 # リスト2.28
-@dataclass
+@dataclasses.dataclass
 class Money:
     """
     量と通貨単位を属性にもつお金オブジェクト

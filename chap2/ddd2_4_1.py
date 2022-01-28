@@ -2,11 +2,11 @@
 2.4.1節のコードの説明
 """
 from __future__ import annotations
-from dataclasses import dataclass
+import dataclasses
 from typing import Final
 
 # リスト2.32
-@dataclass
+@dataclasses.dataclass
 class Money:
     """
     量と通貨単位を属性にもつお金オブジェクト

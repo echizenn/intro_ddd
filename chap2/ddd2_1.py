@@ -1,7 +1,7 @@
 """
 2.1節のコードの説明
 """
-from dataclasses import dataclass
+import dataclasses
 from typing import List
 
 # リスト2.1
@@ -54,8 +54,8 @@ def list2_3():
     print(last_name) # johnが表示される
 
 # リスト2.4
-@dataclass
-class FullName(object):
+@dataclasses.dataclass
+class FullName:
     """
     氏名を表現するクラス
 
@@ -63,8 +63,16 @@ class FullName(object):
         first_name (str): 名
         last_name (str): 姓
     """
-    first_name: str
-    last_name: str
+    _first_name: str
+    _last_name: str
+
+    @property
+    def first_name(self):
+        return self._first_name
+
+    @property
+    def last_name(self):
+        return self._last_name
 
 # リスト2.5
 def list2_5():

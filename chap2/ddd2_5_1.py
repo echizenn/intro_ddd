@@ -1,7 +1,7 @@
 """
 2.5.1節のコードの説明
 """
-from dataclasses import dataclass
+import dataclasses
 from typing import Final, NamedTuple
 
 # リスト2.33

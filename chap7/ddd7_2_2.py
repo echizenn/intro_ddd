@@ -1,12 +1,12 @@
 """
 7.2節のコードの説明
 """
-from dataclasses import dataclass
+import dataclasses
 
 from ddd7_2_1 import IUserRepository
 
 # リスト7.4
-@dataclass
+@dataclasses.dataclass
 class UserApplicationService:
     """
     ユーザーのアプリケーションサービス

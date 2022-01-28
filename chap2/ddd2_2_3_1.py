@@ -1,8 +1,6 @@
 """
 2.2.3節のコードの説明
 """
-from dataclasses import dataclass
-
 from ddd2_1 import FullName
 
 # リスト2.13

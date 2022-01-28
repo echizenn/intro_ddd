@@ -1,13 +1,13 @@
 """
 6.2.3節のコードの説明
 """
-from dataclasses import dataclass
+import dataclasses
 from typing import Final
 
 from ddd6_2_1 import IUserRepository, UserService, User, UserName, UserId
 
 # リスト6.8
-@dataclass
+@dataclasses.dataclass
 class UserData:
     """
     Userクラスのデータを公開するために定義されたDTO
@@ -27,7 +27,7 @@ class UserData:
         return self._name
 
 # リスト6.9
-@dataclass
+@dataclasses.dataclass
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス

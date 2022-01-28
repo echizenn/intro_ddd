@@ -3,12 +3,12 @@
 この節はこれまでの振り返りなのであまり説明はないです
 """
 from abc import ABCMeta, abstractmethod
-from dataclasses import dataclass
+import dataclasses
 import uuid
 from typing import Final, Optional
 
 # リスト6.1
-@dataclass
+@dataclasses.dataclass
 class User:
     """
     ユーザを表すエンティティ
@@ -72,7 +72,7 @@ class UserName:
         return self._value
 
 # リスト6.3
-@dataclass
+@dataclasses.dataclass
 class UserService:
     """
     ユーザのドメインサービス

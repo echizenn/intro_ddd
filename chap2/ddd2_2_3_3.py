@@ -3,7 +3,7 @@
 FullNameクラスの構造を変える例
 """
 from __future__ import annotations # これで自己クラスを型ヒントで使える
-from dataclasses import dataclass
+import dataclasses
 
 # リスト2.20
 """
@@ -12,7 +12,7 @@ __init__, __repr__, __eq__
 を生成してくれるので、equalメソッドの実装は不要だが、
 オーバーライド可能なので、学習のため実装する。
 """
-@dataclass
+@dataclasses.dataclass
 class FullName:
     """
     氏名を表現するクラス
@@ -44,7 +44,7 @@ class FullName:
                 and self.middle_name == other.middle_name) # リスト2.20でこの行追加
 
 # リスト2.19
-def list2_19(name_a: FullName, name_b: FullName) -> bool:
+def list2_19(name_a: FullName, name_b: FullName):
     compare_result: bool = (name_a.first_name == name_b.first_name
                             and name_a.last_name == name_b.last_name
                             and name_a.middle_name == name_b.middle_name)

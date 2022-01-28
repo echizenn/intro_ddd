@@ -1,11 +1,41 @@
 """
 2.3節のコードの説明
 """
-from dataclasses import dataclass
+import dataclasses
 from typing import Final # 再代入不可能という型ヒント
 
+# リスト2.22
+@dataclasses.dataclass(frozen=True)
+class FirstName:
+    """
+    名を表す値オブジェクト
+
+    Attributes:
+        _value (str): 名前
+    """
+    _value: Final[str]
+
+    def __init__(self, value: str) -> None:
+        if len(value) < 1: raise ArgumentException("1文字以上である必要があります。", str(value))
+        self._value = value
+
+# リスト2.23
+@dataclasses.dataclass(frozen=True)
+class LastName:
+    """
+    姓を表す値オブジェクト
+
+    Attributes:
+        _value (str): 姓
+    """
+    _value: Final[str]
+
+    def __init__(self, value: str) -> None:
+        if len(value) < 1: raise ArgumentException("1文字以上である必要があります。", str(value))
+        self._value = value
+        
 # リスト2.21
-@dataclass(frozen=True)
+@dataclasses.dataclass(frozen=True)
 class FullName:
     """
     可能な限り値オブジェクトを適用したFullNameクラス
@@ -20,25 +50,3 @@ class FullName:
     """
     _first_name: Final[FirstName]
     _last_name: Final[LastName]
-
-# リスト2.22
-@dataclass(frozen=True)
-class FirstName:
-    """
-    名を表す値オブジェクト
-
-    Attributes:
-        _value (str): 名前
-    """
-    _value: Final[str]
-
-# リスト2.23
-@dataclass(frozen=True)
-class LastName:
-    """
-    姓を表す値オブジェクト
-
-    Attributes:
-        _value (str): 姓
-    """
-    _value: Final[str]
