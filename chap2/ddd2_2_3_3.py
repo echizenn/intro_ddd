@@ -44,7 +44,7 @@ class FullName:
                 and self.middle_name == other.middle_name) # リスト2.20でこの行追加
 
 # リスト2.19
-def list2_19(name_a: FullName, name_b: FullName) -> bool:
+def list2_19(name_a: FullName, name_b: FullName):
     compare_result: bool = (name_a.first_name == name_b.first_name
                             and name_a.last_name == name_b.last_name
                             and name_a.middle_name == name_b.middle_name)
