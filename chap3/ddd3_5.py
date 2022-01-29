@@ -1,8 +1,11 @@
 """
 3.5節のコードの説明
 """
+import dataclasses
+from typing import Final
 
 # リスト3.8
+@dataclasses.dataclass
 class User:
     """
     無口なコード
@@ -11,10 +14,10 @@ class User:
     Note:
         ユーザ名が文字列ということしかわからない
     """
-    def __init__(self, name: str):
-        self.name: str = name
+    name: str
 
 # リスト3.9
+@dataclasses.dataclass(frozen=True)
 class UserName:
     """
     饒舌なコード
@@ -28,7 +31,7 @@ class UserName:
     Note:
         ユーザ名が3文字以上でなければ動作しないことはコードだけ見てもわかる
     """
-    def __init__(self, value: str):
-        if len(value) < 3: raise ArgumentException("ユーザ名は3文字以上です", str(value))
+    _value: Final[str]
 
-        self._value = value
+    def __post_init__(self):
+        if len(self._value) < 3: raise ArgumentException("ユーザ名は3文字以上です", str(self._value))
