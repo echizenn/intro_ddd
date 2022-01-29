@@ -23,11 +23,11 @@ class User:
         Returns: None
 
         Raises:
-            ValueError: 新しいユーザ名が3文字未満のとき
+            ArgumentException: 新しいユーザ名が3文字未満のとき
         
         Note:
             ユーザ名は3文字以上です
             振る舞いでユーザ名が変更できるようになっている。
         """
-        if len(name) < 3: raise ValueError("ユーザ名は3文字以上です。")
+        if len(name) < 3: raise ArgumentException("ユーザ名は3文字以上です。", str(name))
         self._name: str = name

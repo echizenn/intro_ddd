@@ -53,6 +53,9 @@ class UserApplicationService:
     def register(self, command: UserRegisterCommand):
         """
         トランザクションを利用するようにユーザ登録処理を書き換える
+
+        Raises:
+            CanNotRegisterUserException: 同一ユーザが存在している場合
         """
         # コネクションからトランザクションを開始
         with pyodbc.connect(self._connection_string) as connection:
@@ -61,7 +64,7 @@ class UserApplicationService:
             user = self._user_factory.create(user_name)
             
             if self._user_service.exists(user):
-                raise ValueError("ユーザはすでに存在しています。")
+                raise CanNotRegisterUserException("ユーザはすでに存在しています。")
             
             self._user_repository.save(user, transaction)
             # 完了時にコミットを行う

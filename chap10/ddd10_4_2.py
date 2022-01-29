@@ -22,6 +22,9 @@ class UserApplicationService:
     def register(self, command: UserRegisterCommand):
         """
         トランザクションを利用するようにユーザ登録処理を書き換える
+
+        Raises:
+            CanNotRegisterUserException: 同一ユーザが存在している場合
         """
         # トランザクションスコープを生成する
         # with句のスコープ内でコネクションが開かれると自動的にトランザクションが開始されるとする
@@ -30,7 +33,7 @@ class UserApplicationService:
             user = self._user_factory.create(user_name)
             
             if self._user_service.exists(user):
-                raise ValueError("ユーザはすでに存在しています。")
+                raise CanNotRegisterUserException(user, "ユーザはすでに存在しています。")
             
             self._user_repository.save(user)
             # 処理を反映する際にはコミット処理を行う

@@ -29,12 +29,12 @@ class UserApplicationService:
         Returns: None
 
         Raises:
-            ValueError: 同一ユーザが存在している場合
+            CanNotRegisterUserException: 同一ユーザが存在している場合
         """
         user : User = User(UserName(name))
 
         if self._user_service.exists(user):
-            raise ValueError("ユーザはすでに存在しています")
+            raise CanNotRegisterUserException(user, "ユーザはすでに存在しています")
 
         self._user_repository.save(user)
 

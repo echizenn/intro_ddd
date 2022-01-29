@@ -15,13 +15,13 @@ def create_user(name: str):
     Returns: None
 
     Raises:
-        ValueError: ユーザ名が3文字未満のとき
+        ArgumentException: ユーザ名が3文字未満のとき
         
     Note:
         一見うまくいっているように見えるユーザ作成処理コード
         Userクラス実装していないので動かないです
     """
-    if len(name) < 3: raise ValueError("ユーザ名は3文字以上です。")
+    if len(name) < 3: raise ArgumentException("ユーザ名は3文字以上です。", str(name))
     user: User = User(name)
 
 # リスト2.45
@@ -35,13 +35,13 @@ def update_user(id: str, name: str):
     Returns: None
 
     Raises:
-        ValueError: ユーザ名が3文字未満のとき
+        ArgumentException: ユーザ名が3文字未満のとき
 
     Note:
         ユーザ情報更新処理でも同じ処理を反復していることを確認する
         Userクラス実装していないので動かないです
     """
-    if len(name) < 3: raise ValueError("ユーザ名は3文字以上です。")
+    if len(name) < 3: raise ArgumentException("ユーザ名は3文字以上です。", str(name))
     user: User = User(name)
 
 # リスト2.46
@@ -54,7 +54,7 @@ class UserName:
         _value (str): ユーザ名
 
     Raises:
-        ValueError: ユーザ名が3文字未満のとき
+        ArgumentException: ユーザ名が3文字未満のとき
 
     Note:
         ガード節を書いてオブジェクト作成時に不正な値ではないか確認する。
@@ -62,7 +62,7 @@ class UserName:
     _value: Final[str]
 
     def __post_init__(self):
-        if len(self._value) < 3: raise ValueError("ユーザ名は3文字以上です。", str(self._value))
+        if len(self._value) < 3: raise ArgumentException("ユーザ名は3文字以上です。", str(self._value))
 
 # リスト2.47
 def create_user2(name: str):

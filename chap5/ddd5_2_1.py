@@ -17,13 +17,13 @@ class Program:
         Returns: None
 
         Raises:
-            ValueError: ユーザ名が重複しているとき
+            Exception: ユーザ名が重複しているとき
         """
         user: User = User(UserName(user_name))
 
         user_service: UserService = UserService()
         if user_service.exists(user):
-            raise ValueError(f"{user_name}はすでに存在しています")
+            raise Exception(f"{user_name}はすでに存在しています")
 
         # SQL接続コードをこの後書いているが
         # pythonで書き直すのは面倒+本質的でないので変数の説明のみ

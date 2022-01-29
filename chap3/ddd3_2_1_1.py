@@ -1,8 +1,13 @@
 """
 3.2.1節のコードの説明
 """
+import dataclasses
+from typing import Final
 
 # リスト3.1
+
+
+@dataclasses.dataclass(frozen=True)
 class User:
     """
     ユーザを表すクラス
@@ -11,9 +16,9 @@ class User:
         _name (str): ユーザ名
 
     Raises:
-        ValueError: ユーザ名が3文字未満のとき
+        ArgumentException: ユーザ名が3文字未満のとき
     """
-    def __init__(self, name: str):
-        if len(name) < 3: raise ValueError("ユーザ名は3文字以上です。")
+    _name: Final[str]
 
-        self._name: Final[str] = name
+    def __post_init__(self):
+        if len(self._name) < 3: raise ArgumentException("ユーザ名は3文字以上です。", str(self._name))

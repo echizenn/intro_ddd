@@ -21,7 +21,7 @@ class UserApplicationService:
     _user_service: Final[UserService]
 
     # リスト6.27
-    def register(self, name: str, raw_mail_address: str):
+    def register(self, name: str, mail_address: str):
         """
         ユーザ登録
 
@@ -32,7 +32,7 @@ class UserApplicationService:
         Returns: None
 
         Raises:
-            ValueError: 同一ユーザが存在している場合
+            CanNotRegisterUserException: 同一ユーザが存在している場合
 
         Note:
             ドメインサービスを利用するように変更
@@ -40,7 +40,7 @@ class UserApplicationService:
         user: User = User(UserName(name), MailAddress(mail_address))
 
         if self._user_service.exists(user):
-            raise ValueError("ユーザは既に存在しています")
+            raise CanNotRegisterUserException(user, "ユーザは既に存在しています")
 
         self._user_repository.save(user)
 
@@ -75,8 +75,8 @@ class UserApplicationService:
         Returns: None
 
         Raises:
-            ValueError: 存在しないユーザのidを指定した場合
-            ValueError: 同一ユーザが存在している場合
+            UserNotFoundException: 存在しないユーザのidを指定した場合
+            CanNotRegisterUserException: 同一ユーザが存在している場合
 
         Note:
             ドメインサービスを利用するようにした
@@ -85,14 +85,14 @@ class UserApplicationService:
         target_id: UserId = UserId(command.id)
         user: Optional[User] = self._user_repository.find_by_id(target_id)
 
-        if user is None: raise ValueError("user_idの値が不適切です")
+        if user is None: raise UserNotFoundException(target_id)
 
         name: Optional[str] = command.name
         if name is not None:
             new_user_name: UserName = UserName(name)
             user.change_name(new_user_name)
             if self._user_service.exists(user):
-                raise ValueError("ユーザは既に存在しています")
+                raise CanNotRegisterUserException(user, "ユーザは既に存在しています")
 
         mail_address: Optional[str] = command.mail_address
         if mail_address is not None:
@@ -101,7 +101,7 @@ class UserApplicationService:
         
         self._user_repository.save(user)
 
-    def delete(command: UserUpdateCommand):
+    def delete(self, command: UserUpdateCommand):
         """
         退会処理
 
@@ -111,12 +111,12 @@ class UserApplicationService:
         Returns: None
 
         Raises:
-            ValueError: 存在しないユーザのuser_idの場合
+            UserNotFoundException: 存在しないユーザのuser_idの場合
         """
         target_id: UserId = UserId(command.id)
         user: User = self._user_repository.find_by_id(target_id)
 
-        if user is None: raise ValueError("user_idの値が不適切です")
+        if user is None: raise UserNotFoundException(target_id)
 
         self._user_repository.delete(user)
 

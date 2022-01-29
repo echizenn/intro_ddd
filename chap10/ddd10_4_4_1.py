@@ -48,12 +48,10 @@ class Entity(metaclass=ABCMeta):
 # リスト10.11
 class User(Entity):
     def __init__(self, name: UserName):
-        if name is None: raise ValueError("nameがNoneです")
         self._name: UserName = name
         self._mark_new()
 
     def change_name(self, name: UserName):
-        if name is None: raise ValueError("nameがNoneです")
         self._name = name
         self._mark_dirty()
         
@@ -70,11 +68,15 @@ class UserApplicationService:
     _user_repository: Final[IUserRepository]
 
     def register(self, command: UserRegisterCommand):
+        """
+        Raises:
+            CanNotRegisterUserException: 同一ユーザが存在している場合
+        """
         user_name = UserName(command.name)
         user = self._user_factory.create(user_name)
 
         if self._user_service.exists(user):
-            raise ValueError("そのユーザはすでに存在しています")
+            raise CanNotRegisterUserException("ユーザはすでに存在しています")
 
         self._user_repository.save(user)
 
