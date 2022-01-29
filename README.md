@@ -26,9 +26,10 @@
 値オブジェクトの大事な点としては、attributesが変更できない点  
 これをPython上で強制するには、namedtupleを用いる方法とdataclasses.dataclass(frozen=True)を用いる方法がある。できることはほとんどどちらも同じであり、後者の方が変更が楽な(今後もdataclassを使うことが多い)ため、基本的にはdataclasses.dataclass(frozen=True)を用いることにする。  
 例：
-```Python
+```python
 import dataclasses
 from typing import Final
+
 
 @dataclasses.dataclass(frozen=True)
 class ValueObject:
@@ -41,6 +42,7 @@ class ValueObject:
 import dataclasses
 from typing import Final
 
+
 @dataclasses.dataclass(frozen=True)
 class ValueObject:
     value: Final[str]
@@ -48,3 +50,33 @@ class ValueObject:
     def __post_init__(self):
         # ArgumentExceptionは自分で実装する
         if len(self.value) < 3: raise ArgumentException("3文字以上である必要があります。", str(self.value))
+```
+
+### エンティティ  
+エンティティでは、比較に用いるidなどの変数は不変性を持ち、年齢などの変わりうる変数は適切に変更できる必要がある。  
+これをPythonで実装するには、不変性を持つ変数をFinalで型アノテーションすればよい。  
+また、比較対象となる変数に関して、\_\_eq\_\_関数を実装する。  
+例：
+```python
+# 自己クラスを型アノテーションで使えるようにする
+from __future__ import annotations
+from typing import Final
+
+class Entity:
+    def __init__(self, id_: Id, age: int):
+        self._id: Final[Id] = id_
+        self._age: str = age
+
+    def __eq__(self, other: Entity) -> bool:
+        """
+        比較手段の実装
+
+        Args:
+            other (Entity): 比較相手のEntityオブジェクト
+        
+        Returns:
+            bool: 同一性を持つか否か
+        """
+        if type(self) != type(other): return False
+        return self._id == other._id
+```
