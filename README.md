@@ -28,19 +28,23 @@
 例：
 ```Python
 import dataclasses
+from typing import Final
 
 @dataclasses.dataclass(frozen=True)
 class ValueObject:
-    value: int
+    value: Final[int]
 ```
 
-一方、上記の方法では、自作の__init__を利用することができない(代入不可能ですよとエラーが出る)ので、ガード節(文字数の条件など)を記入したい場合は、\_\_post_init\_\_関数を用いる。   
+一方、上記の方法では、自作の\_\_init\_\_関数を利用することができない(代入不可能ですよとエラーが出る)ので、ガード節(文字数の条件など)を記入したい場合は、\_\_post_init\_\_関数を用いる。   
 例：
 ```python
+import dataclasses
 from typing import Final
 
+@dataclasses.dataclass(frozen=True)
 class ValueObject:
-    def __init__(self, value: str):
+    value: Final[str]
+
+    def __post_init__(self):
         # ArgumentExceptionは自分で実装する
-        if len(value) <= 2: raise ArgumentException("3文字以上である必要があります。", str(value))
-        self.value: Final[str] = value
+        if len(self.value) <= 2: raise ArgumentException("3文字以上である必要があります。", str(self.value))
