@@ -36,7 +36,10 @@ class UserName:
 
     Attributes:
         value (str): ユーザ名
+
+    Raises:
+        ArgumentException: ユーザ名が3文字未満のとき
     """
     def __init__(self, value: str):
-        len(value) < 3: raise ValueError("ユーザ名は3文字以上です")
+        if len(value) < 3: raise ArgumentException("ユーザ名は3文字以上です", str(value))
         self.value: Final[str] = value

@@ -19,10 +19,14 @@ class UserApplicationService():
     _user_service: Final[UserService]
 
     def register(self, command: UserRegisterCommand):
+        """
+        Raises:
+            CanNotRegisterUserException: 同一ユーザが存在している場合
+        """
         user_name = UserName(command.name)
         # ファクトリによってインスタンスを生成する
         user = self._user_factory.create(user_name)
 
         if self._user_service.exists(user):
-            raise ValueError("そのユーザはすでに存在しています")
+            raise CanNotRegisterUserException(user, "ユーザはすでに存在しています")
         self._user_repository.save(user)

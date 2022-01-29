@@ -43,9 +43,6 @@ class Client:
             name (str): ユーザ名
         
         Returns: None
-
-        Raises:
-            ValueError: 同一ユーザが存在している場合
         """
         command = UserRegisterCommand(name)
         self._user_repository_service.handle(command)

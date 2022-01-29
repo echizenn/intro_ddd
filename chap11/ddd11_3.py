@@ -19,11 +19,14 @@ class CircleId:
 class CircleName:
     """
     サークルの名前を表す値オブジェクト
+
+    Raises:
+        CanNotRegisterUserException: サークル名が3文字以上20文字以下でないとき
     """
     def __init__(self, value: str) -> None:
         if value is None: raise TypeError("NoneType")
-        if len(value) < 3: raise ValueError("サークル名は3文字以上です。")
-        if len(value) > 20: raise ValueError("サークル名は20文字以下です。")
+        if len(value) < 3: raise ArgumentException("サークル名は3文字以上です。")
+        if len(value) > 20: raise ArgumentException("サークル名は20文字以下です。")
         self.value: Final[str] = value
 
     def __eq__(self, obj: object) -> bool:

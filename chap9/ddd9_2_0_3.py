@@ -54,19 +54,23 @@ class User():
 @dataclasses.dataclass
 class UserApplicationService():
     """
-    ファクトリを経由してインスタンスを生成する
+    ファクトリを経由してインスタンスを生成する    
     """
     _user_factory: Final[IUserFactory]
     _user_repository: Final[IUserRepository]
     _user_service: Final[UserService]
 
     def register(self, command: UserRegisterCommand):
+        """
+        Raises:
+            CanNotRegisterUserException: 同一ユーザが存在している場合
+        """
         user_name = UserName(command.name)
         # ファクトリによってインスタンスを生成する
         user = self._user_factory.create(user_name)
 
         if self._user_service.exists(user):
-            raise ValueError("そのユーザはすでに存在しています")
+            raise CanNotRegisterUserException(user)
         self._user_repository.save(user)
 
 # リスト9.7

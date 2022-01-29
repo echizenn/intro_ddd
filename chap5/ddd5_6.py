@@ -24,7 +24,7 @@ class InMemoryUserRepository(IUserRepository):
             user_name (UserName): 探したいユーザ名
         
         Returns:
-            Optional[User]: そのユーザ名のユーザがいる場合はUserインスタンス
+            Optional[User]: ユーザ名のユーザがいる場合はUserインスタンス
                             いない場合はNone
         """
         target: Optional[User] = next(filter(
@@ -69,7 +69,7 @@ def find(name: UserName) -> Optional[User]:
             user_name (UserName): 探したいユーザ名
         
         Returns:
-            Optional[User]: そのユーザ名のユーザがいる場合はUserインスタンス
+            Optional[User]: ユーザ名のユーザがいる場合はUserインスタンス
                             いない場合はNone
 
         Note:

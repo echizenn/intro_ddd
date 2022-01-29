@@ -100,7 +100,7 @@ class UserApplicationService:
         Returns: None
 
         Raises:
-            ValueError: 同一ユーザが存在している場合
+            CanNotRegisterUserException: 同一ユーザが存在している場合
         """
         # メールアドレスに夜重複確認を行うように変更された
         mail_address: MailAddress = MailAddress(raw_mail_address)
@@ -108,7 +108,7 @@ class UserApplicationService:
             mail_address
         )
         if duplicated_user is not None:
-            raise ValueError("ユーザはすでに存在しています")
+            raise CanNotRegisterUserException(mail_address)
 
         user_name: UserName = UserName(name)
         user: User = User(user_name, mail_address)
@@ -146,8 +146,8 @@ class UserApplicationService:
         Returns: None
 
         Raises:
-            ValueError: 存在しないユーザのidを指定した場合
-            ValueError: 同一ユーザが存在している場合
+            UserNotFoundException: 存在しないユーザのidを指定した場合
+            CanNotRegisterUserException: 同一ユーザが存在している場合
 
         Note:
             ユーザ情報更新処理も同様に重複確認のロジックを修正する必要がある
@@ -156,7 +156,7 @@ class UserApplicationService:
         target_id: UserId = UserId(command.id)
         user: Optional[User] = self._user_repository.find_by_id(target_id)
 
-        if user is None: raise ValueError("user_idの値が不適切です")
+        if user is None: raise UserNotFoundException(target_id)
 
         name: Optional[str] = command.name
         if name is not None:
@@ -172,7 +172,7 @@ class UserApplicationService:
                 new_mail_address
             )
             if duplicated_user is not None:
-                raise ValueError("同じメールアドレスのユーザが存在しています")
+                raise CanNotRegisterUserException(new_mail_address)
             user.change_mail_address(new_mail_address)
         
         self._user_repository.save(user)
@@ -187,11 +187,11 @@ class UserApplicationService:
         Returns: None
 
         Raises:
-            ValueError: 存在しないユーザのuser_idの場合
+            UserNotFoundException: 存在しないユーザのuser_idの場合
         """
         target_id: UserId = UserId(command.id)
         user: User = self._user_repository.find_by_id(target_id)
 
-        if user is None: raise ValueError("user_idの値が不適切です")
+        if user is None: raise UserNotFoundException(target_id)
 
         self._user_repository.delete(user)

@@ -27,13 +27,13 @@ class Program:
         Returns: None
 
         Raises:
-            ValueError: ユーザ名が重複しているとき
+            Exception: ユーザ名が重複しているとき
         """
         user: User = User(UserName(user_name))
 
         user_service: UserService = UserService(self._user_repository)
         if user_service.exists(user):
-            raise ValueError(f"{user_name}はすでに存在しています")
+            raise Exception(f"{user_name}はすでに存在しています")
 
         _user_repository.save(user)
 

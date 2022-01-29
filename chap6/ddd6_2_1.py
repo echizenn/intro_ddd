@@ -42,10 +42,10 @@ class UserId:
         _value (str): id文字列
 
     Raises:
-        ValueError: valueが空文字の時
+        ArgumentException: valueが空文字の時
     """
     def __init__(self, value: str):
-        if not value: raise ValueError("valueが空文字です")
+        if not value: raise ArgumentException("valueが空文字です")
         self._value = value
 
     @property
@@ -60,11 +60,11 @@ class UserName:
         _value (str): 名前
 
     Raises:
-        ValueError: valueが3文字以上20文字以下でないとき
+        ArgumentException: valueが3文字以上20文字以下でないとき
     """
     def __init__(self, value: str):
         if not 3 <= len(value) <= 20:
-            raise ValueError("ユーザ名は3文字以上20文字以下です。")
+            raise ArgumentException("ユーザ名は3文字以上20文字以下です。", str(value))
         self._value = value
 
     @property
