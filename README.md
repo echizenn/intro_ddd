@@ -52,6 +52,7 @@ class ValueObject:
         if len(self.value) < 3: raise ArgumentException("3文字以上である必要があります。", str(self.value))
 ```
 
+## chap3
 ### エンティティ  
 エンティティでは、比較に用いるidなどの変数は不変性を持ち、年齢などの変わりうる変数は適切に変更できる必要がある。  
 これをPythonで実装するには、不変性を持つ変数をFinalで型アノテーションすればよい。  
