@@ -5,7 +5,7 @@ import dataclasses
 from typing import Final
 
 # リスト3.4
-@dataclass(eq=True)
+@dataclasses.dataclass(eq=True)
 class UserId():
     """
     識別子とそれを利用したユーザのオブジェクト
@@ -19,6 +19,7 @@ class UserId():
     """
     _value: str
 
+@dataclasses.dataclass
 class User:
     """
     識別子を利用したユーザのオブジェクト
