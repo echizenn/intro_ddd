@@ -1,6 +1,7 @@
 """
 3.2.3節のコードの説明
 """
+from __future__ import annotations # これで自己クラスを型ヒントで使える
 from typing import Final
 
 from ddd3_2_2 import UserId
