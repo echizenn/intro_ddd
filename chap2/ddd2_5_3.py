@@ -2,7 +2,7 @@
 2.5.3節のコードの説明
 """
 import dataclasses
-from typing import Final
+from typing import Final, Optional
 
 # リスト2.40
 @dataclasses.dataclass(frozen=True)
@@ -27,7 +27,6 @@ class UserName:
     _value: Final[str]
 
 # リスト2.42
-@dataclasses.dataclass(frozen=True)
 class User:
     """
     値オブジェクトを利用するように変更したUserクラス
@@ -37,8 +36,8 @@ class User:
         name (UserName): ユーザ名の値オブジェクト
     """
     # 初期値がないとpythonだとUser()でエラーが出るので初期値入力した
-    id: UserId = UserId("1")
-    name: UserName = UserName("masanobu")
+    id: Optional[UserId] = None
+    name: Optional[UserName] = None
 
 # リスト2.39,43
 def create_user(name: str) -> User:

@@ -6,7 +6,7 @@ import dataclasses
 from typing import Final
 
 # リスト2.32
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class Money:
     """
     量と通貨単位を属性にもつお金オブジェクト

@@ -1,6 +1,7 @@
 """
 2.5.4節のコードの説明
 """
+import dataclasses
 from typing import Final
 
 # リスト2.44
@@ -44,6 +45,7 @@ def update_user(id: str, name: str):
     user: User = User(name)
 
 # リスト2.46
+@dataclasses.dataclass(frozen=True)
 class UserName:
     """
     値オブジェクトにルールをまとめる
@@ -57,10 +59,10 @@ class UserName:
     Note:
         ガード節を書いてオブジェクト作成時に不正な値ではないか確認する。
     """
-    def __init__(self, value: str):
-        if len(value) < 3: raise ValueError("ユーザ名は3文字以上です。")
+    _value: Final[str]
 
-        self._value: Final[str] = value
+    def __post_init__(self):
+        if len(self._value) < 3: raise ValueError("ユーザ名は3文字以上です。", str(self._value))
 
 # リスト2.47
 def create_user2(name: str):

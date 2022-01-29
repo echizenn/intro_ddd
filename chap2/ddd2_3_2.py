@@ -1,10 +1,12 @@
 """
 2.3節のコードの説明
 """
+import dataclasses
 import re
 from typing import Final
 
 # リスト2.24
+@dataclasses.dataclass(frozen=True)
 class FullName:
     """
     FullNameでルールを担保する
@@ -19,14 +21,14 @@ class FullName:
     Note:
         この状態ではインスタンス同士の比較はできないです。
     """
-    def __init__(self, first_name: str, last_name: str):
-        if not self._validate_name(first_name):
-            raise ArgumentException("許可されていない文字が使われています。", str(first_name))
-        if not self._validate_name(last_name):
-            raise ArgumentException("許可されていない文字が使われています。", str(last_name))
+    _first_name: Final[str]
+    _last_name: Final[str]
 
-        self._first_name: Final[str] = first_name
-        self._last_name: Final[str] = last_name
+    def __post_init__(self):
+        if not self._validate_name(self.first_name):
+            raise ArgumentException("許可されていない文字が使われています。", str(self.first_name))
+        if not self._validate_name(self.last_name):
+            raise ArgumentException("許可されていない文字が使われています。", str(self.last_name))
 
     @staticmethod
     def _validate_name(value: str) -> bool:
