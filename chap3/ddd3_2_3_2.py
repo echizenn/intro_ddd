@@ -60,6 +60,18 @@ class User:
 
 # リスト3.7
 def check(left_user: User, right_user: User):
+    """
+    エンティティの比較を行う
+    
+    Args:
+        left_user (User): 比較したいユーザ
+        right_user (User): 比較対象のユーザ
+    
+    Returns: None
+    
+    Note:
+        エンティティを適切に比較できるようになる
+    """
     if left_user == right_user:
         print("同一のユーザです")
     else:
