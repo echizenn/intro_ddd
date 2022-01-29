@@ -6,6 +6,7 @@ import re
 from typing import Final
 
 # リスト2.25
+@dataclasses.dataclass(frozen=True)
 class Name:
     """
     名前を表現するクラス
@@ -16,11 +17,11 @@ class Name:
     Raises:
         ValueError: アルファベット以外が名前として使われているとき
     """
-    def __init__(self, value: str):
-        if not re.fullmatch('[a-zA-Z]+', value):
-            raise ArgumentException("許可されていない文字が使われています。", str(value))
-        
-        self._value: Final[str] = value
+    _value: Final[str]
+
+    def __post_init__(self):
+        if not re.fullmatch('[a-zA-Z]+', self._value):
+            raise ArgumentException("許可されていない文字が使われています。", str(self._value))
 
 
 # リスト2.26

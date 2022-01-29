@@ -15,9 +15,8 @@ class FirstName:
     """
     _value: Final[str]
 
-    def __init__(self, value: str) -> None:
-        if len(value) < 1: raise ArgumentException("1文字以上である必要があります。", str(value))
-        self._value = value
+    def __post_init__(self):
+        if len(self._value) < 1: raise ArgumentException("1文字以上である必要があります。", str(self._value))
 
 # リスト2.23
 @dataclasses.dataclass(frozen=True)
@@ -30,9 +29,8 @@ class LastName:
     """
     _value: Final[str]
 
-    def __init__(self, value: str) -> None:
-        if len(value) < 1: raise ArgumentException("1文字以上である必要があります。", str(value))
-        self._value = value
+    def __post_init__(self):
+        if len(self._value) < 1: raise ArgumentException("1文字以上である必要があります。", str(self._value))
         
 # リスト2.21
 @dataclasses.dataclass(frozen=True)

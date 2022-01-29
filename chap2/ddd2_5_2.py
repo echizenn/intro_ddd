@@ -1,6 +1,7 @@
 """
 2.5.2節のコードの説明
 """
+import dataclasses
 from typing import Final
 
 # リスト2.36
@@ -37,6 +38,7 @@ def list2_37(user_name: str):
         raise ValueError("異常な値です")
 
 # リスト2.38
+@dataclasses.dataclass(frozen=True)
 class UserName:
     """
     ユーザ名を表す値オブジェクト
@@ -50,8 +52,8 @@ class UserName:
     Note:
         ガード節によって不正な値の存在を考える必要がなくなる
     """
-    def __init__(self, value: str):
-        # ガード節
-        if len(value) < 3: raise ValueError("ユーザ名は3文字以上です。")
+    _value: Final[str]
 
-        self._value: Final[str] = value
+    def __post_init__(self):
+        # ガード節
+        if len(self._value) < 3: raise ValueError("ユーザ名は3文字以上です。", str(self._value))

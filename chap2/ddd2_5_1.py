@@ -34,6 +34,7 @@ def list2_34(model_number: str): # かろうじて文字列であることはわ
     pass
 
 # リスト2.35
+@dataclasses.dataclass(frozen=True)
 class ModelNumber(NamedTuple):
     """
     製品番号を表す値オブジェクト
