@@ -47,4 +47,4 @@ class ValueObject:
 
     def __post_init__(self):
         # ArgumentExceptionは自分で実装する
-        if len(self.value) <= 2: raise ArgumentException("3文字以上である必要があります。", str(self.value))
+        if len(self.value) < 3: raise ArgumentException("3文字以上である必要があります。", str(self.value))
