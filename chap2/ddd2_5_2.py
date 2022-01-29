@@ -29,13 +29,13 @@ def list2_37(user_name: str):
     Returns: None
 
     Raises:
-        ValueError: ユーザ名が3文字未満のとき
+        Exception: ユーザ名が3文字未満のとき
     """
     if len(user_name) >= 3:
         # 正常な値なので処理を継続する
         pass
     else:
-        raise ValueError("異常な値です")
+        raise Exception("異常な値です")
 
 # リスト2.38
 @dataclasses.dataclass(frozen=True)
@@ -47,7 +47,7 @@ class UserName:
         _value (str): ユーザ名の値
         
     Raises:
-        ValueError: ユーザ名が3文字未満のとき
+        ArgumentException: ユーザ名が3文字未満のとき
 
     Note:
         ガード節によって不正な値の存在を考える必要がなくなる
@@ -56,4 +56,4 @@ class UserName:
 
     def __post_init__(self):
         # ガード節
-        if len(self._value) < 3: raise ValueError("ユーザ名は3文字以上です。", str(self._value))
+        if len(self._value) < 3: raise ArgumentException("ユーザ名は3文字以上です。", str(self._value))

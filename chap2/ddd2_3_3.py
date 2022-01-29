@@ -15,7 +15,7 @@ class Name:
         _value (str): 名前、アルファベットのみで構成される
 
     Raises:
-        ValueError: アルファベット以外が名前として使われているとき
+        ArgumentException: アルファベット以外が名前として使われているとき
     """
     _value: Final[str]
 

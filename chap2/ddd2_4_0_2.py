@@ -30,15 +30,15 @@ class Money:
             Money: 加算結果のお金
 
         Raises:
-            ValueError: 通貨単位が異なる和算をしているとき
+            ArgumentException: 通貨単位が異なる和算をしているとき
                
         Note:
             pythonは+演算子を実行すると、__add__メソッドを呼ぶ
             private変数は同一クラスなら呼べるのでarg._currencyで問題ない
         """
         if self._currency != arg._currency:
-            raise ValueError("通貨単位が異なります" \
-                    f"(self:{self._currenc}, arg:{arg._currency})")
+            raise ArgumentException("通貨単位が異なります" \
+                    f"(this:{self._currency}, arg:{arg._currency})")
         
         return Money(self.amount + arg.amount, self._currency)
 
