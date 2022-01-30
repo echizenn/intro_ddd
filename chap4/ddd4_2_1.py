@@ -1,9 +1,14 @@
 """
 4.2.1節のコードの説明
 """
+from __future__ import annotations # これで自己クラスを型ヒントで使える
+import dataclasses
 from typing import Final
 
+from chap2.ddd2_5_3 import UserId, UserName
+
 # リスト4.1
+@dataclasses.dataclass
 class User:
     """
     重複確認のふるまいをUserクラスに追加
@@ -15,9 +20,8 @@ class User:
     Note:
         UserIdとUserNameクラスimportしていないので動きません
     """
-    def __init__(self, id: UserId, name: UserName):
-        self._id: Final[UserId] = id
-        self._name: UserName = name
+    _id: Final[UserId]
+    _name: UserName
 
     def exists(self, user: User):
         """
