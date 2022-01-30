@@ -1,6 +1,7 @@
 """
 4.3節のコードの説明
 """
+from chap2.ddd2_5_3 import UserId, UserName
 
 #  リスト4.8
 class User:

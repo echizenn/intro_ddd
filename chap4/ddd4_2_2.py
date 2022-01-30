@@ -2,6 +2,10 @@
 4.2.2節のコードの説明
 """
 
+from chap2.ddd2_5_3 import UserId, UserName
+from ddd4_2_1 import User
+
+
 # リスト4.4
 class UserService:
     """

@@ -1,7 +1,34 @@
 """
 4.3節のコードの説明
 """
+import dataclasses
 from typing import Final
+
+from chap2.ddd2_5_3 import UserId, UserName
+
+# リスト4.7
+@dataclasses.dataclass
+class User:
+    """
+    リスト4.6で利用されているUserクラスの定義
+
+    Attributes:
+        _id (UserId): ユーザid
+        name (UserName): ユーザ名
+
+    Note:
+        getterとsetterが残り、ユーザにどのようなふるまいやルールがあるかわからない
+    """
+    _id: Final[UserId]
+    name: UserName
+
+    @property
+    def name(self) -> UserName:
+        return self.name
+
+    @name.setter
+    def name(self, value: UserName):
+        self.name = value
 
 # リスト4.6
 class UserService:
@@ -25,27 +52,3 @@ class UserService:
             Userクラスはsetterを持つとする
         """
         user.name = name
-
-# リスト4.7
-class User:
-    """
-    リスト4.6で利用されているUserクラスの定義
-
-    Attributes:
-        _id (UserId): ユーザid
-        name (UserName): ユーザ名
-
-    Note:
-        getterとsetterが残り、ユーザにどのようなふるまいやルールがあるかわからない
-    """
-    def __init__(self, id: UserId, name: UserName):
-        self._id: Final[UserId] = id
-        self.name: UserName = name
-
-    @property
-    def name(self) -> UserName:
-        return self.name
-
-    @name.setter
-    def name(self, value: UserName):
-        self.name = value
