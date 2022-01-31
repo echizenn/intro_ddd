@@ -18,6 +18,7 @@ class User:
 
     Note:
         getterとsetterが残り、ユーザにどのようなふるまいやルールがあるかわからない
+        実際はpropertyを使ってgetterとsetterを書かなくても自動でgetter,setterは定義される
     """
     _id: Final[UserId]
     name: UserName
