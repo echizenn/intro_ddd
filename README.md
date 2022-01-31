@@ -61,16 +61,17 @@ class ValueObject:
 ```python
 # 自己クラスを型アノテーションで使えるようにする
 from __future__ import annotations
+import dataclasses
 from typing import Final
 
+@dataclasses.dataclass
 class Entity:
-    def __init__(self, id_: Id, age: int):
-        self._id: Final[Id] = id_
-        self._age: str = age
+    _id: Final[Id]
+    _age: int
 
     def __eq__(self, other: Entity) -> bool:
         """
-        比較手段の実装
+        他のオブジェクトとの比較
 
         Args:
             other (Entity): 比較相手のEntityオブジェクト
