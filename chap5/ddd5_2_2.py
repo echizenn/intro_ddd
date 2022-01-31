@@ -1,9 +1,13 @@
 """
 5.2節のコードの説明
 """
+import dataclasses
 from typing import Optional
 
+from chap4.ddd4_4_1 import User, UserName
+
 # リスト5.3
+@dataclasses.dataclass
 class Program:
     """
     レポジトリを利用したユーザ作成処理
@@ -14,8 +18,7 @@ class Program:
     Note:
         コードの意図がわかりやすくなっている
     """
-    def __init__(self, user_repository: IUserRepository):
-        self._user_repository: IUserRepository = user_repository
+    _user_repository: IUserRepository
 
     def create_user(self, user_name: str):
         """
@@ -35,9 +38,10 @@ class Program:
         if user_service.exists(user):
             raise Exception(f"{user_name}はすでに存在しています")
 
-        _user_repository.save(user)
+        self._user_repository.save(user)
 
 # リスト5.4
+@dataclasses.dataclass
 class UserService:
     """
     レポジトリを利用したドメインサービス
@@ -48,8 +52,7 @@ class UserService:
     Note:
         コードの意図がわかりやすくなっている
     """
-    def __init__(self, user_repository: IUserRepository):
-        self._user_repository: IUserRepository = user_repository
+    _user_repository: IUserRepository
 
     def exists(self, user: User) -> bool:
         """
