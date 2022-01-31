@@ -5,6 +5,7 @@ import dataclasses
 from typing import Optional
 
 from chap4.ddd4_4_1 import User, UserName
+from ddd5_3_1 import IUserRepository # 後の章からの先取り
 
 # リスト5.3
 @dataclasses.dataclass

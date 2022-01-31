@@ -3,6 +3,8 @@
 """
 from abc import ABCMeta, abstractmethod
 
+from chap4.ddd4_4_1 import User, UserName
+
 # リスト5.8
 class IUserRepository(metaclass=ABCMeta):
     """

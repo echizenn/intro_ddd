@@ -2,6 +2,8 @@
 5.2節のコードの説明
 """
 
+from chap4.ddd4_4_1 import User, UserName
+
 # リスト5.1
 class Program:
     """
