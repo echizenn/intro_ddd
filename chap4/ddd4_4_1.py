@@ -3,7 +3,34 @@
 """
 import dataclasses
 import uuid
-from typing import Final, NamedTuple
+from typing import Final
+
+# リスト4.10
+@dataclasses.dataclass(frozen=True)
+class UserId():
+    """
+    ユーザidを表すクラス
+
+    Attributes:
+        value (str): ユーザid
+    """
+    value: str
+
+@dataclasses.dataclass(frozen=True)
+class UserName:
+    """
+    ユーザ名を表すクラス
+
+    Attributes:
+        value (str): ユーザ名
+
+    Raises:
+        ArgumentException: ユーザ名が3文字未満のとき
+    """
+    value: Final[str]
+
+    def __post_init__(self):
+        if len(self.value) < 3: raise ArgumentException("ユーザ名は3文字以上です", str(self.value))
 
 # リスト4.9
 @dataclasses.dataclass
@@ -19,27 +46,3 @@ class User():
     # pythonならuuidモジュールを使えばよい
     id: Final[UserId] = dataclasses.field(default=uuid.uuid1(), init=False)
     name: Final[UserName]
-
-# リスト4.10
-class UserId(NamedTuple):
-    """
-    ユーザidを表すクラス
-
-    Attributes:
-        value (str): ユーザid
-    """
-    value: str
-
-class UserName:
-    """
-    ユーザ名を表すクラス
-
-    Attributes:
-        value (str): ユーザ名
-
-    Raises:
-        ArgumentException: ユーザ名が3文字未満のとき
-    """
-    def __init__(self, value: str):
-        if len(value) < 3: raise ArgumentException("ユーザ名は3文字以上です", str(value))
-        self.value: Final[str] = value
