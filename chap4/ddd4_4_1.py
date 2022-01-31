@@ -44,5 +44,5 @@ class User():
     """
     # 本のGuid.NewGuid().ToString()でユニークなIDを取得している
     # pythonならuuidモジュールを使えばよい
-    id: Final[UserId] = dataclasses.field(default=uuid.uuid1(), init=False)
+    id: Final[UserId] = dataclasses.field(default_factory=lambda: UserId(uuid.uuid4()), init=False)
     name: Final[UserName]
