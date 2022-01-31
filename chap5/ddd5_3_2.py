@@ -3,10 +3,14 @@
 """
 from abc import ABCMeta, abstractmethod
 
+from chap4.ddd4_4_1 import User, UserName
+
 # リスト5.6
 class IUserRepository(metaclass=ABCMeta):
     """
-    Userクラスのリポジトリインターフェース
+    リポジトリに重複確認メソッドを追加した場合
+
+    Attributes: None
     """
     @abstractmethod
     def save(self, user: User):
