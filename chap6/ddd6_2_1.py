@@ -57,7 +57,7 @@ class User:
         再構築の時はidとname両方指定する
     """
     name: UserName
-    id: UserId = uuid.uuid1()
+    id: UserId = dataclasses.field(default_factory=lambda: UserId(uuid.uuid4()), init=False)
 
     def change_name(self, name: UserName):
         """
