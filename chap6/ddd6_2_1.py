@@ -7,6 +7,41 @@ import dataclasses
 import uuid
 from typing import Final, Optional
 
+# リスト6.2
+@dataclasses.dataclass(frozen=True)
+class UserId:
+    """
+    Userクラスが利用している値オブジェクトの定義
+
+    Attributes:
+        value (str): id文字列
+
+    Raises:
+        ArgumentException: valueが空文字の時
+    """
+    value: Final[str]
+
+    def __post_init__(self):
+        if not self.value: raise ArgumentException("valueが空文字です")
+
+
+@dataclasses.dataclass(frozen=True)
+class UserName:
+    """
+    Userクラスが利用している値オブジェクトの定義
+
+    Attributes:
+        value (str): 名前
+
+    Raises:
+        ArgumentException: valueが3文字以上20文字以下でないとき
+    """
+    value: Final[str]
+
+    def __post_init__(self):
+        if not 3 <= len(self.value) <= 20:
+            raise ArgumentException("ユーザ名は3文字以上20文字以下です。", str(self.value))
+
 # リスト6.1
 @dataclasses.dataclass
 class User:
@@ -22,7 +57,7 @@ class User:
         再構築の時はidとname両方指定する
     """
     name: UserName
-    id: UserId = uuid.uuid1()
+    id: UserId = dataclasses.field(default_factory=lambda: UserId(uuid.uuid4()), init=False)
 
     def change_name(self, name: UserName):
         """
@@ -32,44 +67,6 @@ class User:
             name (UserName): ユーザ名
         """
         self.name = name
-
-# リスト6.2
-class UserId:
-    """
-    Userクラスが利用している値オブジェクトの定義
-
-    Attributes:
-        _value (str): id文字列
-
-    Raises:
-        ArgumentException: valueが空文字の時
-    """
-    def __init__(self, value: str):
-        if not value: raise ArgumentException("valueが空文字です")
-        self._value = value
-
-    @property
-    def value(self):
-        return self._value
-
-class UserName:
-    """
-    Userクラスが利用している値オブジェクトの定義
-
-    Attributes:
-        _value (str): 名前
-
-    Raises:
-        ArgumentException: valueが3文字以上20文字以下でないとき
-    """
-    def __init__(self, value: str):
-        if not 3 <= len(value) <= 20:
-            raise ArgumentException("ユーザ名は3文字以上20文字以下です。", str(value))
-        self._value = value
-
-    @property
-    def value(self):
-        return self._value
 
 # リスト6.3
 @dataclasses.dataclass

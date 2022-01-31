@@ -52,6 +52,7 @@ class ValueObject:
         if len(self.value) < 3: raise ArgumentException("3文字以上である必要があります。", str(self.value))
 ```
 
+## chap3
 ### エンティティ  
 エンティティでは、比較に用いるidなどの変数は不変性を持ち、年齢などの変わりうる変数は適切に変更できる必要がある。  
 これをPythonで実装するには、不変性を持つ変数をFinalで型アノテーションすればよい。  
@@ -60,16 +61,17 @@ class ValueObject:
 ```python
 # 自己クラスを型アノテーションで使えるようにする
 from __future__ import annotations
+import dataclasses
 from typing import Final
 
+@dataclasses.dataclass
 class Entity:
-    def __init__(self, id_: Id, age: int):
-        self._id: Final[Id] = id_
-        self._age: str = age
+    _id: Final[Id]
+    _age: int
 
     def __eq__(self, other: Entity) -> bool:
         """
-        比較手段の実装
+        他のオブジェクトとの比較
 
         Args:
             other (Entity): 比較相手のEntityオブジェクト

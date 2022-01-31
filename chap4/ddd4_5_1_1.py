@@ -14,10 +14,10 @@ class PhysicalDistributionBase:
         出庫
 
         Args:
-            baggage (Baggage): 荷物
+            baggage (Baggage): 出庫する荷物
         
         Returns:
-            Baggage: 荷物
+            Baggage: 出庫する荷物
 
         Note:
             実装はしません
@@ -29,7 +29,7 @@ class PhysicalDistributionBase:
         入庫
 
         Args:
-            baggage (Baggage): 荷物
+            baggage (Baggage): 受け取る荷物
         
         Returns: None
 
