@@ -5,8 +5,10 @@ from typing import Optional
 
 import pyodbc
 
+from chap4.ddd4_4_1 import User, UserId, UserName
 from ddd5_2_2 import Program
 from ddd5_3_1 import IUserRepository
+import settings
 
 # リスト5.10, 5.11
 class UserRepository(IUserRepository):
@@ -14,15 +16,15 @@ class UserRepository(IUserRepository):
     SQLを利用したレポジトリ
     pyodbcモジュール使うとさまざまなDBと接続できそうなので、
     pyodbcモジュールを使うと仮定して書く。
-    """
-    def __init__(self):
-        instance = "インスタンス"
-        user = "ユーザー"
-        pasword = "パスワード"
-        db = "Sample"
+    
+    Attributes:
+        _connection_string (str): SQL接続に用いる引数
 
-        self._connection_string: str = "DRIVER={SQL Server};SERVER=" \
-            + instance + ";uid=" + user + ";pwd=" + pasword + ";DATABASE=" + db
+    Note:
+        C#のConfigurationManagerは設定を書き込むものなので、
+        pythonならsettings.pyとかで代用していいと思う。
+    """
+    _connection_string: str = settings.CONNECTION_STRINGS["default_connection"].connection_string
 
     def save(self, user: User):
         """
