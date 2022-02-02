@@ -9,6 +9,7 @@ from chap5.ddd5_3_1 import IUserRepository
 import pyodbc
 
 from chap4.ddd4_4_1 import UserId, UserName
+import settings
 
 # リスト9.3
 class IUserFactory(metaclasss=ABCMeta):
@@ -25,8 +26,7 @@ class UserFactory(IUserFactory):
     シーケンスを利用したファクトリ
     """
     def create(self, name: UserName):
-        connection_string: str = "DRIVER={SQL Server};SERVER=" \
-            + instance + ";uid=" + user + ";pwd=" + pasword + ";DATABASE=" + db
+        connection_string: str = settings.CONNECTION_STRINGS["default_connection"].connection_string
         with pyodbc.connect(connection_string) as connection:
             cursor = connection.cursor()
             command_text: str = """SELECT seq = (NEXT VALUE FOR UserSeq)"""
