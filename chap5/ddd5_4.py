@@ -1,6 +1,7 @@
 """
 5.4節のコードの解説
 """
+import dataclasses
 from typing import Optional
 
 import pyodbc
@@ -11,6 +12,7 @@ from ddd5_3_1 import IUserRepository
 import settings
 
 # リスト5.10, 5.11
+@dataclasses.dataclass
 class UserRepository(IUserRepository):
     """
     SQLを利用したレポジトリ
