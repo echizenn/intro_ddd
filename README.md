@@ -20,7 +20,10 @@
 ドメインサービス: 異なるエンティティや値オブジェクトを参照するふるまいを定義するのに使う
 
 - [chap5](#chap5)  
-リポジトリ: -
+リポジトリ: ドメインオブジェクト(値オブジェクトやエンティティ)の永続化や再構築を行う
+
+- [chap6](#chap6)  
+アプリケーションサービス: 
 
 
 # Pythonでの実装ルール
@@ -95,3 +98,37 @@ class Entity:
 
 ## chap5
 ### リポジトリ
+ドメインオブジェクト(値オブジェクトやエンティティ)の永続化や再構築を行うものなので、役割はわかりやすい。   
+基本的に、クラスのAttributeとして、データベースの情報やファイルの情報を持ち、メソッドはドメインオブジェクトが引数となる。  
+例：
+```python
+from abc import ABCMeta, abstractmethod
+import dataclasses
+from typing import Final
+
+
+class InterfaceRepository(metaclass=ABCMeta):
+    """
+    リポジトリのインターフェイス
+    (特定の技術の)リポジトリへの依存をなくすために、インターフェイスを定義する
+    """
+    @abstractmethod
+    def find(self, id_: Id) -> Entity:
+        pass
+
+
+@dataclasses.dataclass(frozen=True)
+class Repository(InterfaceRepository):
+    """
+    なんらかの技術(MySQLなど)を用いたリポジトリ
+    """
+    _db: Final[Database]
+
+    def find(self, id_: Id) -> Entity:
+        target = self._db["Entity"].find_one(id_) # イメージでのコードなので、詳細はchap5フォルダを参考してください
+        if target is None: return None
+        return Entity(Id(target._id), int(target._age))
+```
+
+## chap6
+### アプリケーションサービス
