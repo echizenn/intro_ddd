@@ -4,6 +4,9 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
 
+from chap4.ddd4_4_1 import User, UserId, UserName
+
+
 class IUserRepository(metaclass=ABCMeta):
     """
     Userクラスのリポジトリインターフェース
