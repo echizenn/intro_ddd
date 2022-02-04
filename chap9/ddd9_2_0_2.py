@@ -7,6 +7,7 @@ from typing import Final, Optional
 import pyodbc
 
 from chap4.ddd4_4_1 import UserId, UserName
+import settings
 
 # リスト9.2
 class User():
@@ -18,10 +19,8 @@ class User():
         name (UserName): ユーザ名
     """
     def __init__(self, name: UserName, id: Optional[int]=None):
-        # ConfigureManagerを使わずベタうちした場合
-        connection_string: str = "DRIVER={SQL Server};SERVER=" \
-            + instance + ";uid=" + user + ";pwd=" + pasword + ";DATABASE=" + db
-        with pyodbc.connect(self._connection_string) as connection:
+        connection_string: str = settings.CONNECTION_STRINGS["default_connection"].connection_string
+        with pyodbc.connect(connection_string) as connection:
             cursor = connection.cursor()
             command_text: str = """SELECT seq = (NEXT VALUE FOR UserSeq)"""
             cursor.execute(command_text)

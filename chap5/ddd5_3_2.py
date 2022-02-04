@@ -2,11 +2,16 @@
 5.3節のコードの説明
 """
 from abc import ABCMeta, abstractmethod
+import dataclasses
+
+from chap4.ddd4_4_1 import User, UserName
 
 # リスト5.6
 class IUserRepository(metaclass=ABCMeta):
     """
-    Userクラスのリポジトリインターフェース
+    リポジトリに重複確認メソッドを追加した場合
+
+    Attributes: None
     """
     @abstractmethod
     def save(self, user: User):
@@ -50,6 +55,7 @@ class IUserRepository(metaclass=ABCMeta):
         pass
 
 # リスト5.7
+@dataclasses.dataclass
 class UserService:
     """
     レポジトリを利用したドメインサービス
@@ -60,8 +66,7 @@ class UserService:
     Note:
         リスト5.6を利用するとドメインサービスが主体にならない
     """
-    def __init__(self, user_repository: IUserRepository):
-        self._user_repository: IUserRepository = user_repository
+    _user_repository: IUserRepository
 
     def exists(self, user: User) -> bool:
         """

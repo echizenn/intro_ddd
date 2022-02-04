@@ -3,10 +3,17 @@
 """
 from abc import ABCMeta, abstractmethod
 
+from chap4.ddd4_4_1 import User, UserName
+
 # リスト5.5
 class IUserRepository(metaclass=ABCMeta):
     """
     Userクラスのリポジトリインターフェース
+
+    Attributes: None
+
+    Note:
+        どのようなメソッドが必要かだけ定義する
     """
     @abstractmethod
     def save(self, user: User):

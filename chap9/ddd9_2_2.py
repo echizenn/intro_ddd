@@ -8,6 +8,7 @@ from typing import Final
 import pyodbc
 
 from chap4.ddd4_4_1 import User, UserId, UserName
+import settings
 
 # リスト9.10
 class IUserRepository(metaclasss=ABCMeta):
@@ -49,8 +50,7 @@ class UserRepository(IUserRepository):
 
     # リレーショナルデータベースを利用しているが
     def find(self, id: UserId) -> User:
-        connection_string: str = "DRIVER={SQL Server};SERVER=" \
-            + instance + ";uid=" + user + ";pwd=" + pasword + ";DATABASE=" + db
+        connection_string: str = settings.CONNECTION_STRINGS["default_connection"].connection_string
         with pyodbc.connect(connection_string) as connection:
             cursor = connection.cursor()
             command_text: str = """SELECT name FROM users WHERE id = @id"""

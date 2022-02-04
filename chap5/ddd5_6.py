@@ -1,11 +1,16 @@
 """
 5.6節のコードの説明
 """
+import dataclasses
 from typing import Dict, Optional
 import unittest
+
+from chap4.ddd4_4_1 import User, UserId, UserName
+from ddd5_2_2 import Program
 from ddd5_3_1 import IUserRepository
 
 # リスト5.13
+@dataclasses.dataclass
 class InMemoryUserRepository(IUserRepository):
     """
     連想配列をベースとしたレポジトリ
@@ -13,10 +18,11 @@ class InMemoryUserRepository(IUserRepository):
     Attributes:
         store (Dict[UserId, User]): テストデータ
     """
-    def __init__(self):
-        self.store: Dict[UserId, User] = dict()
+    # テストケースによってはデータを確認したいことがある
+    # 確認のための操作を外部から行えるようにするためpublicにしている
+    store: Dict[UserId, User] = dict()
 
-    def find(user_name: UserName) -> Optional[User]:
+    def find(self, user_name: UserName) -> Optional[User]:
         """
         ユーザ名からユーザを探す
 
@@ -36,7 +42,7 @@ class InMemoryUserRepository(IUserRepository):
         else:
             None
     
-    def save(user: User):
+    def save(self, user: User):
         """
         保存する
 
@@ -47,7 +53,7 @@ class InMemoryUserRepository(IUserRepository):
         """
         self.store[user.id] = self.clone(user)
     
-    def clone(user: User):
+    def clone(self, user: User):
         """
         ディープコピーを行う
 
@@ -59,28 +65,27 @@ class InMemoryUserRepository(IUserRepository):
         """
         return User(user.id, user.name)
 
-# リスト5.14
-# InMemoryUserRepositoryの中に入れる
-def find(name: UserName) -> Optional[User]:
-        """
-        ユーザ名からユーザを探す
+    # リスト5.14
+    def find(self, name: UserName) -> Optional[User]:
+            """
+            ユーザ名からユーザを探す
 
-        Args:
-            user_name (UserName): 探したいユーザ名
-        
-        Returns:
-            Optional[User]: ユーザ名のユーザがいる場合はUserインスタンス
-                            いない場合はNone
+            Args:
+                user_name (UserName): 探したいユーザ名
+            
+            Returns:
+                Optional[User]: ユーザ名のユーザがいる場合はUserインスタンス
+                                いない場合はNone
 
-        Note:
-            リスト5.13のfindを繰り返し構文で記述したとき
-        """
-        for elem in self.store.values():
-            if elem.name == name: return self.clone(elem)
-        return None
+            Note:
+                リスト5.13のfindを繰り返し構文で記述したとき
+            """
+            for elem in self.store.values():
+                if elem.name == name: return self.clone(elem)
+            return None
 
 # リスト5.15
-def list5_15():
+def list5_15(user_repository: (IUserRepository)):
     """
     オブジェクトへの操作がリポジトリ内部のインスタンスに影響してしまう
 
@@ -94,7 +99,7 @@ def list5_15():
     user.change_user_name(UserName("naruse"))
 
 # リスト5.16
-def list5_16():
+def list5_16(user_repository: IUserRepository, user: User):
     """
     保存処理後にリポジトリ内部のインスタンスに影響してしまう
 
@@ -103,7 +108,7 @@ def list5_16():
     Returns: None
     """
     # ここでインスタンスをそのままリポジトリに保存してしまうと
-    user_repository.save(user))
+    user_repository.save(user)
     # インスタンスの操作がリポジトリ内部に保存したインスタンスにまで影響する
     user.change_user_name(UserName("naruse"))
 
@@ -114,7 +119,7 @@ class TestUserRepository(unittest.TestCase):
     """
     def test_create_user(self):
         user_repository : InMemoryUserRepository = InMemoryUserRepository()
-        program: program = Program(user_repository)
+        program: Program = Program(user_repository)
         program.create_user("nrs")
 
         # データを取り出して確認

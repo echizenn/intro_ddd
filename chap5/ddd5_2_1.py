@@ -2,6 +2,8 @@
 5.2節のコードの説明
 """
 
+from chap4.ddd4_4_1 import User, UserName
+
 # リスト5.1
 class Program:
     """
@@ -27,6 +29,7 @@ class Program:
 
         # SQL接続コードをこの後書いているが
         # pythonで書き直すのは面倒+本質的でないので変数の説明のみ
+        # 大枠はddd5_4.pyで書くものと似たものになる
         # connectionString: DBの情報
         # connection: usingを使って DBとの接続を確立
         # command: DBにする操作を{}内に記入

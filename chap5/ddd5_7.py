@@ -1,6 +1,7 @@
 """
 5.7節のコードの説明
 """
+import dataclasses
 from typing import Final, Optional, Dict
 import unittest
 
@@ -9,9 +10,12 @@ import unittest
 # pip install dataset
 import dataset
 
+from chap4.ddd4_4_1 import User, UserId, UserName
+from ddd5_2_2 import Program
 from ddd5_3_1 import IUserRepository
 
 # リスト5.18
+@dataclasses.dataclass(frozen=True)
 class EFUserRepository(IUserRepository):
     """
     datasetを利用したリポジトリ
@@ -20,8 +24,7 @@ class EFUserRepository(IUserRepository):
         _context (dateset.Database): データベース情報、Usersテーブルを持つ
                                      Userテーブルはnameとidカラムを持つ
     """
-    def __init__(self, context: dataset.Database):
-        self._context: Final[dataset.Database] = context
+    _context: Final[dataset.Database]
 
     def find(self, name: UserName) -> Optional[User]:
         """
@@ -107,11 +110,11 @@ class TestUserRepository(unittest.TestCase):
     Note:
         リスト5.17とリポジトリの実体が変わっているだけ
     """
-    def test_create_user(self):
+    def test_create_user(self, my_context: dataset.Database):
         user_repository : EFUserRepository = EFUserRepository(my_context)
-        program: program = Program(user_repository)
+        program: Program = Program(user_repository)
         program.create_user("naruse")
 
         # データを取り出して確認
-        head: User = next(user_repository.store.values(), None)
+        head: User = my_context["Users"].find(_limit=1)
         self.assertEqual(head.name, "naruse")
