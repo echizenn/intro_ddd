@@ -56,8 +56,16 @@ class User:
         初めての生成はidの指定なし
         再構築の時はidとname両方指定する
     """
-    name: UserName
-    id: UserId = dataclasses.field(default_factory=lambda: UserId(uuid.uuid4()), init=False)
+    _name: UserName
+    _id: Final[UserId] = dataclasses.field(default_factory=lambda: UserId(uuid.uuid4()), init=False)
+
+    @property
+    def name(self) -> UserName:
+        return self._name
+
+    @property
+    def id(self) -> UserId:
+        return self._id
 
     def change_name(self, name: UserName):
         """
@@ -67,31 +75,6 @@ class User:
             name (UserName): ユーザ名
         """
         self.name = name
-
-# リスト6.3
-@dataclasses.dataclass
-class UserService:
-    """
-    ユーザのドメインサービス
-
-    Attributes:
-        user_repository (Final[IUserRepository]): レポジトリ
-    """
-    user_repository: Final[IUserRepository]
-
-    def exists(self, user: User) -> bool:
-        """
-        ユーザがレポジトリに存在しているか
-
-        Args:
-            user (User): 重複確認したいユーザ
-
-        Returns:
-            bool: 重複しているか否か
-        """
-        duplicated_user: bool = self.user_repository.find(user.name)
-
-        return duplicated_user is not None
 
 # リスト6.4
 class IUserRepository(metaclass=ABCMeta):
@@ -147,3 +130,28 @@ class IUserRepository(metaclass=ABCMeta):
         Returns: None
         """
         pass
+
+# リスト6.3
+@dataclasses.dataclass
+class UserService:
+    """
+    ユーザのドメインサービス
+
+    Attributes:
+        user_repository (Final[IUserRepository]): レポジトリ
+    """
+    user_repository: Final[IUserRepository]
+
+    def exists(self, user: User) -> bool:
+        """
+        ユーザがレポジトリに存在しているか
+
+        Args:
+            user (User): 重複確認したいユーザ
+
+        Returns:
+            bool: 重複しているか否か
+        """
+        duplicated_user: bool = self.user_repository.find(user.name)
+
+        return duplicated_user is not None
