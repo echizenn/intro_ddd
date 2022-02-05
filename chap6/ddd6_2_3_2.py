@@ -27,7 +27,7 @@ class UserData:
         return self._name
 
 # リスト6.9
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス

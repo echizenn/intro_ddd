@@ -49,7 +49,7 @@ def list6_12(user: User):
     user_data: UserData = UserData(user)
 
 # リスト6.14
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス

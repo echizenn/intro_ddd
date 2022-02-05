@@ -8,7 +8,7 @@ from ddd6_2_1 import IUserRepository, UserService, User, UserName, UserId
 from ddd6_2_3_2 import UserData
 
 # リスト6.10
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス
