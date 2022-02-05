@@ -3,9 +3,11 @@
 """
 from abc import ABCMeta, abstractmethod
 import dataclasses
-from typing import Optional
+from typing import Final, Optional
 
 from ddd6_2_1 import UserService, User, UserName, UserId
+from ddd6_2_3_4 import UserData
+from ddd6_2_4_3  import UserUpdateCommand
 
 # リスト6.24
 class IUserRepository(metaclass=ABCMeta):
@@ -76,7 +78,7 @@ class IUserRepository(metaclass=ABCMeta):
         pass
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス
@@ -177,12 +179,12 @@ class UserApplicationService:
         
         self._user_repository.save(user)
 
-    def delete(command: UserUpdateCommand):
+    def delete(self, command: UserDeleteCommand):
         """
         退会処理
 
         Args:
-            command (UserUpdateCommand): 退会したいユーザのコマンドオブジェクト
+            command (UserDeleteCommand): 退会したいユーザのコマンドオブジェクト
 
         Returns: None
 

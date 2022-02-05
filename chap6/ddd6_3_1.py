@@ -2,11 +2,13 @@
 6.3節のコードの解説
 """
 import dataclasses
-from typing import Optional
+from typing import Final, Optional
 
 from ddd6_2_1 import IUserRepository, UserService, User, UserName, UserId
+from ddd6_2_3_4 import UserData
+from ddd6_2_4_3  import UserUpdateCommand
 
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス
@@ -40,7 +42,7 @@ class UserApplicationService:
             user_name
         )
         if duplicated_user is not None:
-            raise CanNotRegisterUserException(user, "ユーザはすでに存在しています")
+            raise CanNotRegisterUserException(duplicated_user, "ユーザはすでに存在しています")
 
         user: User = User(user_name)
         self._user_repository.save(user)
@@ -105,12 +107,12 @@ class UserApplicationService:
         
         self._user_repository.save(user)
 
-    def delete(command: UserUpdateCommand):
+    def delete(self, command: UserDeleteCommand):
         """
         退会処理
 
         Args:
-            command (UserUpdateCommand): 退会したいユーザのコマンドオブジェクト
+            command (UserDeleteCommand): 退会したいユーザのコマンドオブジェクト
 
         Returns: None
 
