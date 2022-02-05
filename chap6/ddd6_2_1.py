@@ -132,7 +132,7 @@ class IUserRepository(metaclass=ABCMeta):
         pass
 
 # リスト6.3
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class UserService:
     """
     ユーザのドメインサービス
@@ -140,7 +140,7 @@ class UserService:
     Attributes:
         user_repository (Final[IUserRepository]): レポジトリ
     """
-    user_repository: Final[IUserRepository]
+    _user_repository: Final[IUserRepository]
 
     def exists(self, user: User) -> bool:
         """
@@ -152,6 +152,6 @@ class UserService:
         Returns:
             bool: 重複しているか否か
         """
-        duplicated_user: bool = self.user_repository.find(user.name)
+        duplicated_user: bool = self._user_repository.find(user.name)
 
         return duplicated_user is not None
