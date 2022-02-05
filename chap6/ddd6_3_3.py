@@ -9,15 +9,15 @@ from ddd6_2_3_4 import UserData
 from ddd6_2_4_3  import UserUpdateCommand
 
 # リスト6.29
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class UserService:
     """
     ユーザのドメインサービス
 
     Attributes:
-        user_repository (Final[IUserRepository]): レポジトリ
+        _user_repository (Final[IUserRepository]): レポジトリ
     """
-    user_repository: Final[IUserRepository]
+    _user_repository: Final[IUserRepository]
 
     def exists(self, user: User) -> bool:
         """
@@ -33,8 +33,8 @@ class UserService:
             ドメインサービス上でユーザの重複に関するルールを変更する
         """
         # 重複のルールをユーザ名からメールアドレスに変更
-        # duplicated_user: bool = self.user_repository.find(user.name)
-        duplicated_user: bool = self.user_repository.find(user.mail_address)
+        # duplicated_user: bool = self._user_repository.find(user.name)
+        duplicated_user: bool = self._user_repository.find(user.mail_address)
 
         return duplicated_user is not None
 
