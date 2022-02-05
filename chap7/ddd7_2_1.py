@@ -4,6 +4,8 @@
 from abc import ABCMeta, abstractmethod
 import dataclasses
 
+from chap6.ddd6_2_1 import UserId
+
 # リスト7.1
 class ObjectA:
     """
