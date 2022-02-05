@@ -23,7 +23,7 @@
 リポジトリ: ドメインオブジェクト(値オブジェクトやエンティティ)の永続化や再構築を行う
 
 - [chap6](#chap6)  
-アプリケーションサービス: 
+アプリケーションサービス: ドメインではなく、アプリケーションのためのサービスを記述する
 
 
 # Pythonでの実装ルール
@@ -74,6 +74,14 @@ from typing import Final
 class Entity:
     _id: Final[Id]
     _age: int
+
+    @property
+    def id(self) -> Id:
+        return self._id
+
+    @property
+    def age(self) -> int:
+        return self._age
 
     def __eq__(self, other: Entity) -> bool:
         """
@@ -132,3 +140,47 @@ class Repository(InterfaceRepository):
 
 ## chap6
 ### アプリケーションサービス
+クライアントに必要なサービスを記述する。  
+Attributesはドメインサービスやレポジトリを含むことが多い。  
+メソッドの引数にはコマンドオブジェクトを利用することで、interfaceを変更する必要が減る。  
+メソッドの返り値としてデータ転送用オブジェクトを用いることで、ドメインが外部に流出することを防ぐ。  
+
+例：
+```python
+import dataclasses
+from typing import Final
+
+@dataclasses.dataclass(frozen=True)
+class ApplicationService:
+    _repository: Final[InterfaceRepository]
+
+    def register(self, command: EntityRegisterCommand):
+        entity = Entity(Id(command.id), command.age)
+        self._user_repository.save(entity)
+```
+
+### コマンドオブジェクト
+上記アプリケーションサービスのメソッドの引数に用いるオブジェクト  
+基本的にコンストラクタ(\_\_init\_\_)とgetterだけ用意すれば良い。  
+
+例：
+```python
+@dataclasses.dataclass(frozen=True)
+class EntityRegisterCommand:
+    id: Final[str]
+    age: Final[int]
+```
+
+### データ転送用オブジェクト
+上記アプリケーションサービスのメソッドの返り値に用いるオブジェクト  
+コマンドオブジェクトと同様にコンストラクタとgetterだけ用意すれば良い。  
+コンストラクタの引数をドメインオブジェクトにすると、ドメインの変更に強くなる。  
+
+例：
+```python
+@dataclasses.dataclass(frozen=True)
+class EntityData:
+    def __init__(self, entity: Entity):
+        self.id = entity.id.value
+        self.age = entity.age
+```
