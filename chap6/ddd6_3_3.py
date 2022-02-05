@@ -1,14 +1,45 @@
 """
 6.3節のコードの解説
 """
-from abc import ABCMeta, abstractmethod
 import dataclasses
-from typing import Optional
+from typing import Final, Optional
 
 from ddd6_2_1 import IUserRepository, User, UserName, UserId
+from ddd6_2_3_4 import UserData
+from ddd6_2_4_3  import UserUpdateCommand
+
+# リスト6.29
+@dataclasses.dataclass(frozen=True)
+class UserService:
+    """
+    ユーザのドメインサービス
+
+    Attributes:
+        _user_repository (Final[IUserRepository]): レポジトリ
+    """
+    _user_repository: Final[IUserRepository]
+
+    def exists(self, user: User) -> bool:
+        """
+        ユーザがレポジトリに存在しているか
+
+        Args:
+            user (User): 重複確認したいユーザ
+
+        Returns:
+            bool: 重複しているか否か
+        
+        Note:
+            ドメインサービス上でユーザの重複に関するルールを変更する
+        """
+        # 重複のルールをユーザ名からメールアドレスに変更
+        # duplicated_user: bool = self._user_repository.find(user.name)
+        duplicated_user: bool = self._user_repository.find(user.mail_address)
+
+        return duplicated_user is not None
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス
@@ -80,7 +111,8 @@ class UserApplicationService:
 
         Note:
             ドメインサービスを利用するようにした
-            個人的には90行目のif文の中でexistsを確認する意味がわからない
+            これでも完璧に変更がなくなるかというとそういうわけではなく、
+            96行目のif文の位置を変えたりはしないといけないこともある
         """
         target_id: UserId = UserId(command.id)
         user: Optional[User] = self._user_repository.find_by_id(target_id)
@@ -120,33 +152,3 @@ class UserApplicationService:
 
         self._user_repository.delete(user)
 
-
-# リスト6.29
-@dataclasses.dataclass
-class UserService:
-    """
-    ユーザのドメインサービス
-
-    Attributes:
-        user_repository (Final[IUserRepository]): レポジトリ
-    """
-    user_repository: Final[IUserRepository]
-
-    def exists(self, user: User) -> bool:
-        """
-        ユーザがレポジトリに存在しているか
-
-        Args:
-            user (User): 重複確認したいユーザ
-
-        Returns:
-            bool: 重複しているか否か
-        
-        Note:
-            ドメインサービス上でユーザの重複に関するルールを変更する
-        """
-        # 重複のルールをユーザ名からメールアドレスに変更
-        # duplicated_user: bool = self.user_repository.find(user.name)
-        duplicated_user: bool = self.user_repository.find(user.mail_address)
-
-        return duplicated_user is not None

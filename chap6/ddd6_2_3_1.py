@@ -7,7 +7,7 @@ from typing import Final
 from ddd6_2_1 import IUserRepository, UserService, User, UserName, UserId
 
 # リスト6.6
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス
@@ -47,6 +47,9 @@ class UserApplicationService:
         
         Returns:
             User: ユーザオブジェクト
+
+        Note:
+            とてもシンプルなコードにはなる
         """
         target_id: UserId = UserId(user_id)
         user: User = self._user_repository.find_by_id(target_id)
@@ -54,7 +57,7 @@ class UserApplicationService:
         return user
 
 # リスト6.7
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class Client:
     """
     ドメインオブジェクトのメソッドの意図せぬ呼び出し
@@ -74,6 +77,10 @@ class Client:
             name (str): 変更後のユーザ名
         
         Returns: None
+
+        Note:
+            ドメインオブジェクトの振る舞いを呼び出すのはアプリケーションサービスの役目なのに
+            それ以外のオブジェクトでもドメインオブジェクトの振る舞いを呼び出せてしまう
         """
         target: User = self._user_application_service.get(id)
         new_name: UserName = UserName(name)
