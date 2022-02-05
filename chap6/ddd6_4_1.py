@@ -3,10 +3,12 @@
 """
 import dataclasses
 from typing import Final, Optional
-from ddd6_2_1 import IUserRepository, User, UserName, UserId
+from ddd6_2_1 import IUserRepository, UserService, User, UserName, UserId
+from ddd6_2_3_4 import UserData
+from ddd6_2_4_3  import UserUpdateCommand
 
 # リスト6.32
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス
@@ -114,7 +116,7 @@ class UserApplicationService:
 
 
 # リスト6.33
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class UserRegisterService:
     """
     ユーザ登録処理クラス
@@ -149,7 +151,7 @@ class UserRegisterService:
         
 
 # リスト6.34
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class UserDeleteService:
     """
     ユーザ退会処理クラス
