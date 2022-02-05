@@ -7,7 +7,7 @@ from typing import Final
 from ddd6_2_1 import IUserRepository, UserService, User, UserName
 
 # リスト6.5
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス
