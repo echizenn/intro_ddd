@@ -5,8 +5,9 @@ import dataclasses
 from typing import Final, Optional
 
 from ddd6_2_1 import IUserRepository, UserService, User, UserName, UserId
+from ddd6_2_3_4 import UserData
 
-# リスト6.17(Pythonだと本の前者の書き方はできないと思う)
+# リスト6.17(Pythonだと本の前者の書き方はできないと思う(または、単にsetterをつけるだけ))
 class UserUpdateCommand:
     """
     コマンドオブジェクト
@@ -33,7 +34,7 @@ class UserUpdateCommand:
         return self._mail_address
 
 # リスト6.18
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス

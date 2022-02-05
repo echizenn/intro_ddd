@@ -5,10 +5,11 @@ import dataclasses
 from typing import Final, Optional
 
 from ddd6_2_1 import IUserRepository, UserService, User, UserName, UserId
+from ddd6_2_3_4 import UserData
 from ddd6_2_4_3  import UserUpdateCommand
 
 # リスト6.21
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class UserApplicationService:
     """
     ユーザのアプリケーションサービス
@@ -76,7 +77,7 @@ class UserApplicationService:
             コマンドオブジェクトを利用するように変更した
             情報変更があっても引数が変化しない
         """
-        target_id: UserId = UserId(user_id)
+        target_id: UserId = UserId(command.id)
         user: Optional[User] = self._user_repository.find_by_id(target_id)
 
         if user is None: raise UserNotFoundException(target_id)
@@ -95,7 +96,7 @@ class UserApplicationService:
         
         self._user_repository.save(user)
 
-    def delete(command: UserUpdateCommand):
+    def delete(self, command: UserUpdateCommand):
         """
         退会処理
 
