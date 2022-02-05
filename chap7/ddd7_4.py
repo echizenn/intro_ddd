@@ -3,7 +3,7 @@
 """
 import dataclasses
 
-from ddd7_2_1 import IUserRepository
+from ddd7_2_1 import IUserRepository, UserRepository
 
 
 # リスト7.5
