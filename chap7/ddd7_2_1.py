@@ -4,6 +4,8 @@
 from abc import ABCMeta, abstractmethod
 import dataclasses
 
+from chap6.ddd6_2_1 import UserId
+
 # リスト7.1
 class ObjectA:
     """
@@ -50,5 +52,11 @@ class UserRepository(IUserRepository):
 class UserApplicationService:
     """
     ユーザーのアプリケーションサービス
+
+    Attributes:
+        _user_repository(UserRepository): ユーザレポジトリ
+
+    Note:
+        UserRepositoryに依存している
     """
     _user_repository: UserRepository
