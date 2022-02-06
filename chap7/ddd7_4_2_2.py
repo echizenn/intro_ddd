@@ -8,16 +8,18 @@ ServiceLocatorパターンよりはIoC Containerパターンの方が依存関�
 PythonのDIツールとして、injectorを用いることにした。
 https://github.com/alecthomas/injector
 """
+import dataclasses
+from typing import Any, Final
+
 import injector
-from typing import Any
 
 from ddd7_2_1 import IUserRepository
 
 # リスト7.17
+@injector.inject
+@dataclasses.dataclass(frozen=True)
 class UserApplicationService:
-    @injector.inject
-    def __init__(self, user_repository: IUserRepository):
-        self._user_repository = user_repository
+    _user_repository: Final[IUserRepository]
 
 
 class ServiceCollection:
