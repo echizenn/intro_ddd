@@ -52,5 +52,11 @@ class UserRepository(IUserRepository):
 class UserApplicationService:
     """
     ユーザーのアプリケーションサービス
+
+    Attributes:
+        _user_repository(UserRepository): ユーザレポジトリ
+
+    Note:
+        UserRepositoryに依存している
     """
     _user_repository: UserRepository
