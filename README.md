@@ -25,6 +25,8 @@
 - [chap6](#chap6)  
 アプリケーションサービス: ドメインではなく、アプリケーションのためのサービスを記述する
 
+- [chap7](#chap7)  
+依存性の話: 抽象に依存しよう
 
 # Pythonでの実装ルール
 ## chap2
@@ -183,4 +185,44 @@ class EntityData:
     def __init__(self, entity: Entity):
         self.id = entity.id.value
         self.age = entity.age
+```
+
+## chap7
+依存関係をコントロールしやすくするために、IoC Containerパターンの実装を紹介する。
+### IoC Container
+インターフェイスに依存しているオブジェクトがどれかを一箇所で指定し、全てのオブジェクトをそこから取得することで、依存性の管理を行うものである。  
+DIツールとして[injector](https://github.com/alecthomas/injector)を用いる。  
+例：
+```python
+from typing import Any, Final
+
+import injector
+
+
+@injector.inject
+@dataclasses.dataclass(frozen=True)
+class ApplicationService:
+    _repository: Final[InterfaceRepository]
+
+
+class ServiceCollection:
+    def __init__(self) -> None:
+        self.injector = injector.Injector(self.__class__.configure)
+
+    @classmethod
+    def configure(binder):
+        """
+        依存関係の登録をする
+        """
+        binder.bind(InterfaceRepository, to=Repository)
+
+    def resolve(self, cls: Any) -> Any:
+        return self.injector.get(cls)
+
+
+service_collection = ServiceCollection()
+# インスタンスはIoC Container経由で取得する
+application_service = service_collection.resolve(ApplicationService)
+# ...
+# ...
 ```
