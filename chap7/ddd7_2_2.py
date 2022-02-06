@@ -10,5 +10,11 @@ from ddd7_2_1 import IUserRepository
 class UserApplicationService:
     """
     ユーザーのアプリケーションサービス
+
+    Attributes:
+        _user_repository(IUserRepository): ユーザレポジトリ
+    
+    Note:
+        インターフェイスへの依存に変わった
     """
     _user_repository: IUserRepository
