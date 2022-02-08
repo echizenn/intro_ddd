@@ -5,7 +5,7 @@ import dataclasses
 from typing import Final, List
 
 # リスト13.2
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class CircleApplicationService:
     """
     サークルのメンバー上限数は条件によって変更される

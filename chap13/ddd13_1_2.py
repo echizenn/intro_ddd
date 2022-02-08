@@ -8,10 +8,16 @@ from typing import Final
 from chap13.ddd13_1_1_2 import Circle
 
 # リスト13.4
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class CircleFullException:
     """
     サークルが満員かどうかを評価する仕様
+
+    Attributes:
+        _user_repository(IUserRepository): ユーザレポジトリ
+
+    Note:
+        複雑な評価手順をカプセル化することができる
     """
     _user_repository: Final[IUserRepository]
 
@@ -22,10 +28,13 @@ class CircleFullException:
         return self.count_members() >= circle_upper_limit
 
 # リスト13.5
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class CircleApplicationService:
     """
     仕様を利用する
+
+    Note:
+        ドメインについて直接のコードの記述がなくなる
     """
     _circle_repository: Final[ICircleRepository]
     _user_repository: Final[IUserRepository]
