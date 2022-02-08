@@ -5,13 +5,18 @@ import dataclasses
 from typing import Final, List
 
 # リスト13.7
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class CircleMembers:
     """
     サークルに所属するメンバーを表すファーストクラスコレクション
     """
+    _id: Final[CircleId]
     _owner: Final[User]
     _members: Final[List[User]]
+
+    @property
+    def id(self) -> CircleId:
+        return self._id
 
     def count_members(self) -> int:
         return len(self._members) + 1
@@ -34,9 +39,16 @@ class CircleMembersFullSpecification:
         return members.count_members() >= circle_upper_limit
 
 # リスト13.9
-# ファーストクラスコレクションに詰め替える
-owner = user_repository.find(circle.owner)
-members = user_repository.find(circle.members)
-circle_members = CircleMembers(circle.id, owner, members)
-circle_full_spec = CircleMembersFullSpecification()
-if circle_full_spec.is_satisfied_by(circle_members)
+def list13_9(user_repository: IUserRepository, circle: Circle):
+    """
+    ファーストクラスコレクションに詰め替える
+
+    Note:
+        ドメインオブジェクトを入出力で使わないようになった
+    """
+    owner = user_repository.find(circle.owner)
+    members = user_repository.find(circle.members)
+    circle_members = CircleMembers(circle.id, owner, members)
+    circle_full_spec = CircleMembersFullSpecification()
+    if circle_full_spec.is_satisfied_by(circle_members):
+        pass
