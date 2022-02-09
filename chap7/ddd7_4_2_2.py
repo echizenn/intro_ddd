@@ -9,7 +9,7 @@ PythonのDIツールとして、injectorを用いることにした。
 https://github.com/alecthomas/injector
 """
 import dataclasses
-from typing import Any, Final
+from typing import Final, Generic, Type, TypeVar
 
 import injector
 
@@ -21,8 +21,9 @@ from ddd7_2_1 import IUserRepository
 class UserApplicationService:
     _user_repository: Final[IUserRepository]
 
+T = TypeVar("T")
 
-class ServiceCollection:
+class ServiceCollection(Generic[T]):
     def __init__(self) -> None:
         self.injector = injector.Injector(self.__class__.configure)
 
@@ -33,7 +34,7 @@ class ServiceCollection:
         """
         binder.bind(IUserRepository, to=InMemoryUserRepository)
 
-    def resolve(self, cls: Any) -> Any:
+    def resolve(self, cls: Type[T]) -> T: # これでアノテーションがあっているかはわからないです
         return self.injector.get(cls)
 
 

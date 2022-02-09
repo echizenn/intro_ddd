@@ -4,16 +4,18 @@
 from abc import ABCMeta, abstractmethod
 import dataclasses
 import datetime
-from typing import Any, Final, List
+from typing import Final, Generic, List, TypeVar
 
 
 # リスト13.14
-class ISpecification(metaclass=ABCMeta):
+T = TypeVar("T")
+
+class ISpecification(Generic[T], metaclass=ABCMeta):
     """
     仕様のインターフェース
     """
     @abstractmethod
-    def is_satisfied_by(self, value: Any) -> bool:
+    def is_satisfied_by(self, value: T) -> bool:
         pass
 
 

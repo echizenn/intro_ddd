@@ -12,6 +12,9 @@ from chap13.ddd13_2_2_2 import ICircleRepository, ISpecification
 class CircleRepository(ICircleRepository):
     """
     仕様オブジェクトを受け取るリポジトリの実装
+
+    Note:
+        毎回インスタンスを作成することで実行速度がかなり遅くなっている
     """
     _connection: Final[SqlConnection]
 

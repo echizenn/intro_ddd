@@ -15,7 +15,7 @@ class ICircleRepository(metaclass=ABCMeta):
         pass
 
 # リスト13.11
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class CircleApplicationService:
     """
     お勧めサークルを探し出すアプリケーションサービスの処理
