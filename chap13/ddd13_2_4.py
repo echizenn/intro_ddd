@@ -4,13 +4,16 @@
 import dataclasses
 from typing import Final, List
 
-import dataset
+import sqlalchemy
 
 
 # リスト13.18
 class CircleApplicationService:
     """
     サークル一覧を取得する処理
+
+    Note:
+        とにかく遅い
     """
     def get_summaries(self, command: CircleGetSummariesCommand) -> CircleGetSummariesResult:
         # 全件取得して
@@ -63,9 +66,22 @@ class CircleQueryService:
 @dataclasses.dataclass
 class DatasetCircleQueryService:
     """
-    ORM(dataset)を利用しようと思ったけど、ちょっとわからない。。。
+    これまでORMにdatasetを用いてきたが、datasetではJOIN句が扱えないので、
+    SQLAlchemyを用いる。
+
+    おそらく正確な書き方はできていない
     """
-    _context: Final[dataset.Database]
+    _context: Final[sqlalchemy.engine.Engine]
 
     def get_summaries(self, command: CircleGetSummaries) -> CircleGetSummaryResult:
-        pass
+        SessionClass = sqlalchemy.orm.sessionmaker(self._context)
+        session = SessionClass()
+
+        all_ = session.query(Circle, User).join(User, User.id==Circle.owner_id)
+
+        page = command.page
+        size = command.size
+
+        summaries = all_.limit(size).offset((page-1)*size).all()
+
+        return CircleGetSummariesResult(summaries)
