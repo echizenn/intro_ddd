@@ -7,7 +7,7 @@ import dateutil
 from typing import Final
 
 # リスト13.12
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class CircleRecommendSpecification:
     """
     お勧めサークルかどうかを見極める仕様オブジェクト
@@ -19,7 +19,7 @@ class CircleRecommendSpecification:
         return circle.created > self._execute_date_time - dateutil.relativedelta.relativedelta(months=1)
 
 # リスト13.13
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class CircleApplicationService:
     """
     仕様を利用しお勧めサークルを検索する
