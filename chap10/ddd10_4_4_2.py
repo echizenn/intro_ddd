@@ -3,7 +3,7 @@
 """
 from abc import ABCMeta, abstractmethod
 import dataclasses
-from typing import Any, Dict, Final
+from typing import Dict, Final, Generic, TypeVar
 
 from chap4.ddd4_4_1 import UserId, UserName
 from chap9.ddd9_2_0_3 import IUserFactory
@@ -121,25 +121,27 @@ class InMemoryUserRepository(IUserRepository):
         self._deletes.clear()
 
 # リスト10.18
-class InMemoryRepository(metaclass=ABCMeta):
+TKey = TypeVar("TKey")
+TEntity = TypeVar("TEntity")
+
+class InMemoryRepository(Generic[TKey, TEntity], metaclass=ABCMeta):
     """
     リスト10.17のコードを共通化する
     """
-    # 本当はAnyではなくkeyとvalueはそれぞれ共通の型と言うことにしたかったが、やり方わからなかった
-    _creates: Dict[Any, Any] = dataclasses.field(default_factory==dict, init=False)
-    _updates: Dict[Any, Any] = dataclasses.field(default_factory==dict, init=False)
-    _deletes: Dict[Any, Any] = dataclasses.field(default_factory==dict, init=False)
-    _db: Dict[Any, Any] = dataclasses.field(default_factory==dict, init=False)
+    _creates: Dict[TKey, TEntity] = dataclasses.field(default_factory==dict, init=False)
+    _updates: Dict[TKey, TEntity] = dataclasses.field(default_factory==dict, init=False)
+    _deletes: Dict[TKey, TEntity] = dataclasses.field(default_factory==dict, init=False)
+    _db: Dict[TKey, TEntity] = dataclasses.field(default_factory==dict, init=False)
 
-    def data(self) -> Dict[Any, Any]:
+    def data(self) -> Dict[TKey, TEntity]:
         return dict(self._db.items()-self._deletes.items()).update(self._creates).update(self._updates)
 
-    def save(self, entity: Any):
+    def save(self, entity: TEntity):
         id = self._get_id(entity)
         target_map = self._updates if id in self.data() else self._creates
         target_map[id] = self._clone(entity)
 
-    def remove(self, entity: Any):
+    def remove(self, entity: TEntity):
         id = self._get_id(entity)
         self._deletes[id] = self._clone(entity)
 
@@ -150,9 +152,9 @@ class InMemoryRepository(metaclass=ABCMeta):
         self._deletes.clear()
 
     @abstractmethod
-    def _get_id(self, entity: Any) -> Any:
+    def _get_id(self, entity: TEntity) -> TKey:
         pass
 
     @abstractmethod
-    def _clone(self, entity: Any) -> Any:
+    def _clone(self, entity: TEntity) -> TEntity:
         pass

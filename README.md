@@ -194,7 +194,7 @@ class EntityData:
 DIツールとして[injector](https://github.com/alecthomas/injector)を用いる。  
 例：
 ```python
-from typing import Any, Final
+from typing import Final, Generic, Type, TypeVar
 
 import injector
 
@@ -205,7 +205,9 @@ class ApplicationService:
     _repository: Final[InterfaceRepository]
 
 
-class ServiceCollection:
+T = TypeVar("T")
+
+class ServiceCollection(Generic[T]):
     def __init__(self) -> None:
         self.injector = injector.Injector(self.__class__.configure)
 
@@ -216,7 +218,7 @@ class ServiceCollection:
         """
         binder.bind(InterfaceRepository, to=Repository)
 
-    def resolve(self, cls: Any) -> Any:
+    def resolve(self, cls: Type[T]) -> T:
         return self.injector.get(cls)
 
 
